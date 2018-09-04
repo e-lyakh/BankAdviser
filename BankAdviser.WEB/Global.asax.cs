@@ -18,9 +18,11 @@ namespace BankAdviser.WEB
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            NinjectModule requestModule = new RequestModule();
-            NinjectModule serviceModule = new ServiceModule();
-            var kernel = new StandardKernel(requestModule, serviceModule);
+            // Dependencies injection:            
+            NinjectModule uowModule = new NinjectUowModule();
+            NinjectModule enquiryManagerModule = new NinjectEmMolule();
+            NinjectModule replyManagerModule = new NinjectRemMolule();
+            var kernel = new StandardKernel(uowModule, enquiryManagerModule, replyManagerModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }

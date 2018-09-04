@@ -52,16 +52,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\DialogDTO.cs" />
-    <Compile Include="DTO\InquiryDTO.cs" />
-    <Compile Include="DTO\ReplyDTO.cs" />
-    <Compile Include="DTO\DepositInfoDTO.cs" />
-    <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="BusinessModels\NetIncome.cs" />
+    <Compile Include="DTO\BankDTO.cs" />
+    <Compile Include="DTO\EnquiryDTO.cs" />
+    <Compile Include="DTO\ReplyEntryDTO.cs" />
+    <Compile Include="DTO\DepositDTO.cs" />
+    <Compile Include="Infrastructure\NinjectUowModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Interfaces\IInquiryService.cs" />
-    <Compile Include="Interfaces\ISearchService.cs" />
+    <Compile Include="Interfaces\IBankManager.cs" />
+    <Compile Include="Interfaces\IDepositManager.cs" />
+    <Compile Include="Interfaces\IEnquiryManager.cs" />
+    <Compile Include="Interfaces\IReplyEntryManager.cs" />
+    <Compile Include="Interfaces\IBotManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\InquiryService.cs" />
+    <Compile Include="Services\BankManager.cs" />
+    <Compile Include="Services\BotManager.cs" />
+    <Compile Include="Services\DepositManager.cs" />
+    <Compile Include="Services\EnquiryManager.cs" />
+    <Compile Include="Services\ReplyEntryManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BankAdviser.DAL\BankAdviser.DAL.csproj">
@@ -72,8 +80,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

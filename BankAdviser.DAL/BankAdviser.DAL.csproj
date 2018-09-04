@@ -52,19 +52,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\RDSContext.cs" />
-    <Compile Include="Entities\BankInfo.cs" />
-    <Compile Include="Entities\Dialog.cs" />
-    <Compile Include="Entities\DepositInfo.cs" />
-    <Compile Include="Entities\Inquiry.cs" />
-    <Compile Include="Entities\Reply.cs" />
+    <Compile Include="Entities\Bank.cs" />
+    <Compile Include="Entities\Sets\BankType.cs" />
+    <Compile Include="Entities\Deposit.cs" />
+    <Compile Include="Entities\Enquiry.cs" />
+    <Compile Include="Entities\Sets\Currency.cs" />
+    <Compile Include="Entities\Sets\InterestsPeriodicity.cs" />
+    <Compile Include="Entities\ReplyEntry.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\DialogRepository.cs" />
-    <Compile Include="Repositories\ReplyRepository.cs" />
-    <Compile Include="Repositories\SearchRepository.cs" />
-    <Compile Include="Repositories\InquiryRepository.cs" />
-    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\BanksRepository.cs" />
+    <Compile Include="Repositories\ReplyEntriesRepository.cs" />
+    <Compile Include="Repositories\DepositsRepository.cs" />
+    <Compile Include="Repositories\EnquiriesRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Services\Settings.cs" />
   </ItemGroup>
   <ItemGroup>

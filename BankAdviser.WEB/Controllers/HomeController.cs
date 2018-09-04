@@ -9,63 +9,65 @@ using System.Web.Mvc;
 namespace BankAdviser.WEB.Controllers
 {
     public class HomeController : Controller
-    {
-        IInquiryService inquiryService;
+    {        
+        IEnquiryManager enquiryManager;
+        IReplyEntryManager replyManager;
 
-        public HomeController (IInquiryService service)
+        public HomeController (IEnquiryManager enquiryManager, IReplyEntryManager replyManager)
         {
-            inquiryService = service;
+            this.enquiryManager = enquiryManager;
+            this.replyManager = replyManager;
         }
 
         public ActionResult Index()
         {
-            //IEnumerable<DialogDTO> dialogDTOs = inquiryService.GetDialogs();
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<DialogDTO, DialogVM>()).CreateMapper();
-            //var dialogs = mapper.Map<IEnumerable<DialogDTO>, List<DialogVM>>(dialogDTOs);
-            //return View(dialogs);
-
-            InquiryVM inquiryVM = new InquiryVM();
-            return View(inquiryVM);
+            EnquiryVM enquiryVM = new EnquiryVM();
+            return View(enquiryVM);
         }
-
-        public ActionResult PutInquiry(int? id)
-        {
-            try
-            {
-                DialogDTO dialog = inquiryService.GetDialog(id);
-                var request = new InquiryVM
-                {
-                    Id = dialog.Id
-                };
-
-                return View(request);
-            }
-            catch (ValidationException ex)
-            {
-                return Content(ex.Message);
-            }
-        }
+        
         [HttpPost]
-        public ActionResult PutInquiry(InquiryVM inquiryVM)
+        public ActionResult MakeEnquiry(EnquiryVM enquiryVM)
         {
-            try
+            if (ModelState.IsValid)
             {
-                Mapper.Initialize(cfg => cfg.CreateMap<InquiryVM, InquiryDTO>());
-                var inquiryDTO = Mapper.Map<InquiryVM, InquiryDTO>(inquiryVM);
+                try
+                {
+                    //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EnquiryVM, EnquiryDTO>()).CreateMapper();
+                    ////Mapper.Initialize(cfg => cfg.CreateMap<EnquiryVM, EnquiryDTO>());
+                    //var enquiryDTO = mapper.Map<EnquiryVM, EnquiryDTO>(enquiryVM);
 
-                inquiryService.SaveInquiry(inquiryDTO);
+                    //enquiryManager.SaveEnquiry(enquiryDTO);
 
-                return Content("<h2>Ваш запрос принят в работу. Ответ будет выслан на указанный e-mail.</h2>");
+                    return RedirectToAction("ShowReply", "Home", enquiryVM);
+                }
+                catch (ValidationException ex)
+                {
+                    ModelState.AddModelError(ex.Property, ex.Message);
+                }
             }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-            }
-            return View(inquiryVM);
+
+            return View(enquiryVM);
         }
+
+        public ActionResult ShowReply(EnquiryVM enquiryVM)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EnquiryVM, EnquiryDTO>()).CreateMapper();            
+            var enquiryDTO = mapper.Map<EnquiryVM, EnquiryDTO>(enquiryVM);
+
+            int enqId = enquiryManager.SaveEnquiry(enquiryDTO);           
+
+            var replyEntriesDTO = replyManager.GetReplyEntries(enqId);
+
+            var mapper2 = new MapperConfiguration(cfg => cfg.CreateMap<ReplyEntryDTO, ReplyEntryVM>()).CreateMapper();            
+            var replyEntriesVM = mapper2.Map<List<ReplyEntryDTO>, List<ReplyEntryVM>>(replyEntriesDTO);
+
+            return View(replyEntriesVM);
+        }
+
         protected override void Dispose(bool disposing)
         {
-            inquiryService.Dispose();
+            enquiryManager.Dispose();
+            replyManager.Dispose();
             base.Dispose(disposing);
         }
     }

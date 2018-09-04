@@ -4,11 +4,11 @@ using System;
 namespace BankAdviser.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
-    {
-        IRepository<Dialog> Dialogs { get; }
-        IRepository<Inquiry> Inquiries { get; }
-        IRepository<DepositInfo> Searches { get; }
-        IRepository<Reply> Replies { get; }
+    {        
+        IRepository<Enquiry> Enquiries { get; }
+        IRepository<Bank> Banks { get; }
+        IRepository<Deposit> Deposits { get; }
+        IRepository<ReplyEntry> ReplyEntries { get; }
         void Save();
     }
 }

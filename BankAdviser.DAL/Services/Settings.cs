@@ -3,8 +3,20 @@
 namespace BankAdviser.DAL.Services
 {
     public static class Settings
-    {
-        public static string DbName { get; } = Read("RDS_DB_NAME");
+    {        
+        private static readonly string hostName = Read("RDS_HOSTNAME");
+        private static readonly string dbName = Read("RDS_DBNAME");
+        private static readonly string userName = Read("RDS_USERNAME");
+        private static readonly string password = Read("RDS_PASSWORD");
+        private static readonly string port = Read("RDS_PORT");
+
+        public static string ConnectionString
+        {
+            get
+            {
+                return "Data Source=" + hostName + ";Initial Catalog=" + dbName + ";User ID=" + userName + ";Password=" + password + ";MultipleActiveResultSets=True;";
+            }
+        }
 
         private static string Read(string key)
         {
