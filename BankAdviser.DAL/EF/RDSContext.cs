@@ -31,7 +31,7 @@ namespace BankAdviser.DAL.EF
 
             db.Banks.Add(new Bank
             {
-                Id = 0,
+                Id = 1,
                 SearchDate = DateTime.Now,
                 Name = "ПриватБанк",
                 Type = BankType.State,
@@ -40,7 +40,7 @@ namespace BankAdviser.DAL.EF
             });
             db.Banks.Add(new Bank
             {
-                Id = 1,
+                Id = 2,
                 SearchDate = DateTime.Now,
                 Name = "Ощадбанк",
                 Type = BankType.State,
@@ -49,7 +49,7 @@ namespace BankAdviser.DAL.EF
             });            
             db.Banks.Add(new Bank
             {
-                Id = 2,
+                Id = 3,
                 SearchDate = DateTime.Now,
                 Name = "ПУМБ",
                 Type = BankType.Private,
@@ -58,7 +58,7 @@ namespace BankAdviser.DAL.EF
             });
             db.Banks.Add(new Bank
             {
-                Id = 3,
+                Id = 4,
                 SearchDate = DateTime.Now,
                 Name = "Пивденный",
                 Type = BankType.Private,
@@ -67,7 +67,7 @@ namespace BankAdviser.DAL.EF
             });
             db.Banks.Add(new Bank
             {
-                Id = 4,
+                Id = 5,
                 SearchDate = DateTime.Now,
                 Name = "Райффайзен Банк Аваль",
                 Type = BankType.Foreign,
@@ -76,7 +76,7 @@ namespace BankAdviser.DAL.EF
             });
             db.Banks.Add(new Bank
             {
-                Id = 5,
+                Id = 6,
                 SearchDate = DateTime.Now,
                 Name = "Credit Agricole",
                 Type = BankType.Foreign,
@@ -90,9 +90,9 @@ namespace BankAdviser.DAL.EF
             // PrivatBank
             db.Deposits.Add(new Deposit
             {
-                Id = 0,
+                Id = 1,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 2,
                 Name = "Стандарт",
                 Currency = Currency.UAH,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
@@ -108,9 +108,9 @@ namespace BankAdviser.DAL.EF
             });            
             db.Deposits.Add(new Deposit
             {
-                Id = 1,
+                Id = 2,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Стандарт",
                 Currency = Currency.USD,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
@@ -126,9 +126,9 @@ namespace BankAdviser.DAL.EF
             });            
             db.Deposits.Add(new Deposit
             {
-                Id = 2,
+                Id = 3,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Стандарт",
                 Currency = Currency.EUR,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,                
@@ -144,9 +144,9 @@ namespace BankAdviser.DAL.EF
 
             db.Deposits.Add(new Deposit
             {
-                Id = 3,
+                Id = 4,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Стандарт срочный",
                 Currency = Currency.UAH,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,                
@@ -163,9 +163,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 4,
+                Id = 5,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Стандарт срочный",
                 Currency = Currency.USD,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,                
@@ -180,9 +180,9 @@ namespace BankAdviser.DAL.EF
             });            
             db.Deposits.Add(new Deposit
             {
-                Id = 5,
+                Id = 6,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Стандарт срочный",
                 Currency = Currency.EUR,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
@@ -198,9 +198,9 @@ namespace BankAdviser.DAL.EF
 
             db.Deposits.Add(new Deposit
             {
-                Id = 6,
+                Id = 7,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Приват-вклад",
                 Currency = Currency.UAH,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
@@ -212,9 +212,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 7,
+                Id = 8,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Приват-вклад",
                 Currency = Currency.USD,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
@@ -226,9 +226,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 8,
+                Id = 9,
                 SearchDate = DateTime.Now,
-                BankId = 0,
+                BankId = 1,
                 Name = "Приват-вклад",
                 Currency = Currency.EUR,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
@@ -242,9 +242,9 @@ namespace BankAdviser.DAL.EF
             // PUMB
             db.Deposits.Add(new Deposit
             {
-                Id = 9,
+                Id = 10,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.UAH,
                 MinSum = 2500,
@@ -262,9 +262,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 10,
+                Id = 11,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.UAH,
                 MinSum = 200_000,               
@@ -281,9 +281,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 11,
+                Id = 12,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.UAH,
                 MinSum = 2500,
@@ -302,9 +302,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 12,
+                Id = 13,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.UAH,
                 MinSum = 200_000,               
@@ -322,9 +322,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 13,
+                Id = 14,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.USD,               
                 MinSum = 100,
@@ -342,9 +342,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 14,
+                Id = 15,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.USD,
                 MinSum = 20_000,               
@@ -361,9 +361,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 15,
+                Id = 16,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.USD,
                 MinSum = 100,
@@ -382,9 +382,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 16,
+                Id = 17,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.USD,
                 MinSum = 20_000,                
@@ -402,9 +402,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 17,
+                Id = 18,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.EUR,                
                 MinSum = 100,
@@ -422,9 +422,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 18,
+                Id = 19,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.EUR,
                 MinSum = 20_000,               
@@ -441,9 +441,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 19,
+                Id = 20,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.EUR,
                 MinSum = 100,
@@ -462,9 +462,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 20,
+                Id = 21,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.EUR,
                 MinSum = 20_000,               
@@ -484,9 +484,9 @@ namespace BankAdviser.DAL.EF
             // Aval:
             db.Deposits.Add(new Deposit
             {
-                Id = 21,
+                Id = 22,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Классический",
                 Currency = Currency.UAH,
                 MinSum = 2000,
@@ -504,9 +504,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 22,
+                Id = 23,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Классический",
                 Currency = Currency.UAH,
                 MinSum = 100_000,               
@@ -523,9 +523,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 23,
+                Id = 24,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Классический",
                 Currency = Currency.USD,
                 MinSum = 500,
@@ -543,9 +543,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 24,
+                Id = 25,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Классический",
                 Currency = Currency.USD,
                 MinSum = 10_000,                
@@ -562,9 +562,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 25,
+                Id = 26,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Сберегательный",
                 Currency = Currency.UAH,
                 MinSum = 500,
@@ -580,9 +580,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 26,
+                Id = 27,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Сберегательный",
                 Currency = Currency.UAH,
                 MinSum = 100_000,                
@@ -597,9 +597,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 27,
+                Id = 28,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Сберегательный",
                 Currency = Currency.USD,
                 MinSum = 100,
@@ -615,9 +615,9 @@ namespace BankAdviser.DAL.EF
             });
             db.Deposits.Add(new Deposit
             {
-                Id = 28,
+                Id = 29,
                 SearchDate = DateTime.Now,
-                BankId = 4,
+                BankId = 5,
                 Name = "Сберегательный",
                 Currency = Currency.USD,
                 MinSum = 10_000,                

@@ -14,6 +14,7 @@
         public bool AreStateBanksIncluded { get; set; }
         public bool AreForeignBanksIncluded { get; set; }
         public int BanksNum { get; set; }
+        public string SortOrder { get; set; }
         public string UserIP { get; set; }
     }
 }

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="EF\RDSContext.cs" />
     <Compile Include="Entities\Bank.cs" />
+    <Compile Include="Entities\Sets\SortBy.cs" />
     <Compile Include="Entities\Sets\BankType.cs" />
     <Compile Include="Entities\Deposit.cs" />
     <Compile Include="Entities\Enquiry.cs" />

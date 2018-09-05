@@ -39,18 +39,18 @@ namespace BankAdviser.BLL.Services
             if (enq == null)
                 throw new ValidationException("Enquiry ID is not set", "");
 
-            var depositsByEnquiry = db.Deposits.GetAll()
-                                    .Where(d => d.Currency == enq.Currency &&
-                                    d.MinSum < enq.Sum &&
-                                    d.MaxSum > enq.Sum &&
-                                    d.HasTerm(enq.Term) &&
-                                    d.InterestsPeriodicity == enq.InterestsPeriodicity &&
-                                    d.IsAddable == enq.IsAddable &&
-                                    d.IsWithdrawable == enq.IsWithdrawable &&
-                                    d.IsCancellable == enq.IsCancellable &&
-                                    (db.Banks.Get(d.BankId).Type == BankType.Private && enq.ArePrivateBanksIncluded) &&
-                                    (db.Banks.Get(d.BankId).Type == BankType.State && enq.AreStateBanksIncluded) &&
-                                    (db.Banks.Get(d.BankId).Type == BankType.Foreign && enq.AreForeignBanksIncluded));
+            var depositsByEnquiry = db.Deposits.GetAll();
+                                    //.Where(d => d.Currency == enq.Currency &&
+                                    //d.MinSum < enq.Sum &&
+                                    //d.MaxSum > enq.Sum &&
+                                    //d.HasTerm(enq.Term) &&
+                                    //d.InterestsPeriodicity == enq.InterestsPeriodicity &&
+                                    //d.IsAddable == enq.IsAddable &&
+                                    //d.IsWithdrawable == enq.IsWithdrawable &&
+                                    //d.IsCancellable == enq.IsCancellable &&
+                                    //(db.Banks.Get(d.BankId).Type == BankType.Private && enq.ArePrivateBanksIncluded) &&
+                                    //(db.Banks.Get(d.BankId).Type == BankType.State && enq.AreStateBanksIncluded) &&
+                                    //(db.Banks.Get(d.BankId).Type == BankType.Foreign && enq.AreForeignBanksIncluded));
 
             IEnumerable<DepositDTO> depositsDTObyEnquiry = null;
             if (depositsByEnquiry != null)

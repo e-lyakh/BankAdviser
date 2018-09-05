@@ -17,7 +17,8 @@ namespace BankAdviser.DAL.Entities
         public bool ArePrivateBanksIncluded { get; set; }
         public bool AreStateBanksIncluded { get; set; }
         public bool AreForeignBanksIncluded { get; set; }
-        public int BanksNum { get; set; }        
+        public int BanksNum { get; set; }
+        public string SortOrder { get; set; }
         public string UserIP { get; set; }
     }        
 }

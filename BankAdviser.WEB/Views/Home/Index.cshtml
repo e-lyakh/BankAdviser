@@ -32,7 +32,7 @@
     <div class="form-group row pb-md-4">
         <label for="inputSum" class="col-2 col-form-label">СУММА</label>
         <div class="col-2">
-            <input type="text" class="form-control" id="inputSum" name="Sum">
+            <input type="text" class="form-control text-center" id="inputSum" name="Sum">
         </div>
     </div>
 
@@ -42,7 +42,7 @@
             <input type="range" class="form-control" id="termRange" min="1" max="36" step="1" value="3">
         </div>
         <div class="col-1">
-            <input type="text" class="form-control" id="termText" name="Term">
+            <input type="text" class="form-control text-center" id="termText" name="Term">
         </div>
         <label class="col-form-label">мес.</label>
     </div>
@@ -51,6 +51,10 @@
         <div class="row">
             <legend class="col-form-label col-2 pt-0">ПРОЦЕНТЫ</legend>
             <div class="col-10">
+                <div class="custom-control custom-radio custom-control-inline col-auto">
+                    <input class="custom-control-input" type="radio" id="radioWeeklyInterests" name="InterestsPeriodicity" value="Weekly">
+                    <label class="custom-control-label" for="radioWeeklyInterests">Еженедельно</label>
+                </div>
                 <div class="custom-control custom-radio custom-control-inline col-auto">
                     <input class="custom-control-input" type="radio" id="radioMonthlyInterests" name="InterestsPeriodicity" value="Monthly">
                     <label class="custom-control-label" for="radioMonthlyInterests">Ежемесячно</label>
@@ -110,6 +114,16 @@
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>
+        </select>
+    </div>
+
+    <div class="form-group row pb-md-4">
+        <label for="selectSortOder" class="col-form-label col-2">СОРТИРОВАТЬ ПО</label>
+        <select class="custom-select col-3 ml-md-3" id="selectSortOder" name="SortOder">
+            <option selected>доходности депозитов</option>
+            <option value="Profitability">доходности депозитов</option>
+            <option value="BanksRating">рейтингу банков</option>
+            <option value="BanksAssets">размеру активов банков</option>
         </select>
     </div>
 
