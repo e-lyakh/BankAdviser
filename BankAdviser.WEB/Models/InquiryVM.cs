@@ -1,12 +1,8 @@
-﻿
-using System;
-
-namespace BankAdviser.DAL.Entities
+﻿namespace BankAdviser.WEB.Models
 {
-    public class Enquiry
+    public class InquiryVM
     {
         public int Id { get; set; }
-        public DateTime Date { get; set; }
         public string Currency { get; set; }
         public double Sum { get; set; }
         public int Term { get; set; }
@@ -20,5 +16,5 @@ namespace BankAdviser.DAL.Entities
         public int BanksNum { get; set; }
         public string SortOrder { get; set; }
         public string UserIP { get; set; }
-    }        
+    }
 }

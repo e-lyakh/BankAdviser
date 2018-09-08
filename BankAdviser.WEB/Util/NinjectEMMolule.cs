@@ -8,7 +8,7 @@ namespace BankAdviser.WEB.Util
     {
         public override void Load()
         {
-            Bind<IEnquiryManager>().To<EnquiryManager>();            
+            Bind<IInquiryManager>().To<InquiryManager>();            
         }
     }
 }

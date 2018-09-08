@@ -5,7 +5,7 @@ namespace BankAdviser.BLL.BusinessModels
     public static class NetIncome
     {
 
-        public static double Calculate(EnquiryDTO enquiry, DepositDTO deposit)
+        public static double Calculate(InquiryDTO inquiry, DepositDTO deposit)
         {
             double netIncome = 0;
 
