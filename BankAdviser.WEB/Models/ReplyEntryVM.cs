@@ -2,6 +2,8 @@
 {
     public class ReplyEntryVM
     {
+        private double depositRate;
+
         public int Id { get; set; }
         public string BankName { get; set; }
         public string DepositName { get; set; }

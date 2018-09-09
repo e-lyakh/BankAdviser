@@ -4,59 +4,63 @@
     ViewBag.Title = "Депозиты по запросу";
 }
 
-<h3 class="header">Депозиты по запросу:</h3>
+<h3 class="header">Депозиты по запросу:<span class="glyphicon glyphicon-asterisk"></span></h3>
 
 
 <table class="table">
-        <tr>            
-            <th>
-                @Html.DisplayNameFor(model => model[0].BankName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].DepositName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].DepositRate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].DepositBonusInfo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].NetIncome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].Remark)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].DepositUrl)
-            </th>            
-            <th></th>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Банк</th>
+            <th scope="col">Депозит</th>
+            <th scope="col">%</th>
+            <th scope="col">*</th>
+            <th scope="col">Доход</th>
+            <th scope="col">Ссылка</th>
         </tr>
+    </thead>
 
-        @foreach (var item in Model)
-        {
-            <tr class="border_bottom">                
-                <td>
-                    @Html.DisplayFor(modelItem => item.BankName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepositName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepositRate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepositBonusInfo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NetIncome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Remark)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepositUrl)
-                </td>               
-            </tr>
+    <tbody>
+        @{
+            int count = 1;
+            string rate = String.Empty;
+
+            foreach (var item in Model)
+            {
+                rate = (item.DepositRate * 100).ToString() + "%";
+                <tr>
+                    <th scope="row">
+                        @count.ToString()
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositName)
+                    </td>
+                    <td>
+                        @rate
+                    </td>
+                    <td data-toggle="popover" title="@Html.DisplayFor(modelItem => item.DepositBonusInfo)" data-content="Test">
+                        <p><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NetIncome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositUrl)
+                    </td>
+                </tr>
+                count++;
+            }
         }
+    </tbody>
+
 </table>
+
+
+@section scripts {
+    <script type="text/javascript">
+        
+    </script>
+}

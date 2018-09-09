@@ -33,6 +33,8 @@
         public string Remark { get; set; }
         public string Url { get; set; }
 
+        public double NetIncome { get; set; }
+
         public double GetRateByTerm(int months, int weeks = 0)
         {
             if (weeks == 1)
