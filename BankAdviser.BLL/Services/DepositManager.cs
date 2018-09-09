@@ -12,11 +12,11 @@ namespace BankAdviser.BLL.Services
 {
     public class DepositManager : IDepositManager
     {
-        private IUnitOfWork uow;
+        private IUnitOfWork db;
 
         public DepositManager(IUnitOfWork uow)
         {
-            this.uow = uow;
+            db = uow;
         }
 
         public void SaveDeposit(DepositDTO depositDTO)
@@ -28,46 +28,43 @@ namespace BankAdviser.BLL.Services
             if (deposit.MaxSum == 0)
                 deposit.MaxSum = 100_000_000;
 
-            uow.Deposits.Create(deposit);
-            uow.Save();
+            db.Deposits.Create(deposit);
+            db.Save();
         }
 
-        public IEnumerable<DepositDTO> SelectDeposits(int? inquiryId)
+        public IEnumerable<DepositDTO> SelectDeposits(int? equiryId)
         {
-            if (inquiryId == null)
-                throw new ValidationException("Inquiry ID is not set", "");
+            Enquiry enq = db.Enquiries.Get(equiryId.Value);
 
-            Inquiry inq = uow.Inquiries.Get(inquiryId.Value);
+            if (enq == null)
+                throw new ValidationException("Enquiry ID is not set", "");
 
-            if (inq == null)
-                throw new ValidationException("Inquiry is not found", "");
+            var depositsByEnquiry = db.Deposits.GetAll();
+                                    //.Where(d => d.Currency == enq.Currency &&
+                                    //d.MinSum < enq.Sum &&
+                                    //d.MaxSum > enq.Sum &&
+                                    //d.HasTerm(enq.Term) &&
+                                    //d.InterestsPeriodicity == enq.InterestsPeriodicity &&
+                                    //d.IsAddable == enq.IsAddable &&
+                                    //d.IsWithdrawable == enq.IsWithdrawable &&
+                                    //d.IsCancellable == enq.IsCancellable &&
+                                    //(db.Banks.Get(d.BankId).Type == BankType.Private && enq.ArePrivateBanksIncluded) &&
+                                    //(db.Banks.Get(d.BankId).Type == BankType.State && enq.AreStateBanksIncluded) &&
+                                    //(db.Banks.Get(d.BankId).Type == BankType.Foreign && enq.AreForeignBanksIncluded));
 
-            var depositsByInquiry = uow.Deposits.GetAll()
-                                    .Where(d => d.Currency == inq.Currency &&
-                                    d.MinSum < inq.Sum &&
-                                    d.MaxSum > inq.Sum &&
-                                    d.HasTerm(inq.Term) &&
-                                    d.InterestsPeriodicity == inq.InterestsPeriodicity &&
-                                    d.IsAddable == inq.IsAddable &&
-                                    d.IsWithdrawable == inq.IsWithdrawable &&
-                                    d.IsCancellable == inq.IsCancellable); // &&
-                                    //(db.Banks.Get(d.BankId).Type == BankType.Private && inq.ArePrivateBanksIncluded) &&
-                                    //(db.Banks.Get(d.BankId).Type == BankType.State && inq.AreStateBanksIncluded) &&
-                                    //(db.Banks.Get(d.BankId).Type == BankType.Foreign && inq.AreForeignBanksIncluded));
-
-            IEnumerable<DepositDTO> depositsDTObyInquiry = null;
-            if (depositsByInquiry != null)
+            IEnumerable<DepositDTO> depositsDTObyEnquiry = null;
+            if (depositsByEnquiry != null)
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Deposit, DepositDTO>()).CreateMapper();                
-                depositsDTObyInquiry = mapper.Map<IEnumerable<Deposit>, IEnumerable<DepositDTO>>(depositsByInquiry);
+                depositsDTObyEnquiry = mapper.Map<IEnumerable<Deposit>, IEnumerable<DepositDTO>>(depositsByEnquiry);
             }            
 
-            return depositsDTObyInquiry;
+            return depositsDTObyEnquiry;
         }
 
         public void Dispose()
         {
-            uow.Dispose();
+            db.Dispose();
         }
     }
 }

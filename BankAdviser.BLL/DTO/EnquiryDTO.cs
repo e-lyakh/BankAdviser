@@ -1,6 +1,6 @@
 ﻿namespace BankAdviser.BLL.DTO
 {
-    public class InquiryDTO
+    public class EnquiryDTO
     {
         public int Id { get; set; }        
         public string Currency { get; set; }

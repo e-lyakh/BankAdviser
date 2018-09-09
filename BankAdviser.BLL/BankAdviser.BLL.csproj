@@ -54,21 +54,21 @@
   <ItemGroup>
     <Compile Include="BusinessModels\NetIncome.cs" />
     <Compile Include="DTO\BankDTO.cs" />
-    <Compile Include="DTO\InquiryDTO.cs" />
+    <Compile Include="DTO\EnquiryDTO.cs" />
     <Compile Include="DTO\ReplyEntryDTO.cs" />
     <Compile Include="DTO\DepositDTO.cs" />
     <Compile Include="Infrastructure\NinjectUowModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\IBankManager.cs" />
     <Compile Include="Interfaces\IDepositManager.cs" />
-    <Compile Include="Interfaces\IInquiryManager.cs" />
+    <Compile Include="Interfaces\IEnquiryManager.cs" />
     <Compile Include="Interfaces\IReplyEntryManager.cs" />
     <Compile Include="Interfaces\IBotManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BankManager.cs" />
     <Compile Include="Services\BotManager.cs" />
     <Compile Include="Services\DepositManager.cs" />
-    <Compile Include="Services\InquiryManager.cs" />
+    <Compile Include="Services\EnquiryManager.cs" />
     <Compile Include="Services\ReplyEntryManager.cs" />
   </ItemGroup>
   <ItemGroup>

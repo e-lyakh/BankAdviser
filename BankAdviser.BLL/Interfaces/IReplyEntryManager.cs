@@ -7,7 +7,7 @@ namespace BankAdviser.BLL.Interfaces
     {
         void SaveReplyEntry(ReplyEntryDTO replyEntryDTO);
         ReplyEntryDTO GetReplyEntry(int? id);
-        List<ReplyEntryDTO> GetReplyEntriesByInquiry(int? inquiryId);
+        List<ReplyEntryDTO> GetReplyEntries(int? enquiryId);
         void Dispose();
     }
 }

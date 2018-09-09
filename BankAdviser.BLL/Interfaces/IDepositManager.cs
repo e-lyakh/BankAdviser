@@ -6,7 +6,7 @@ namespace BankAdviser.BLL.Interfaces
     public interface IDepositManager
     {
         void SaveDeposit(DepositDTO depositDTO);
-        IEnumerable<DepositDTO> SelectDeposits(int? iquiryId);
+        IEnumerable<DepositDTO> SelectDeposits(int? equiryId);
         void Dispose();
     }
 }

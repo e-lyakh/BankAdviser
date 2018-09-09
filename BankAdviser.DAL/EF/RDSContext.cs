@@ -8,7 +8,7 @@ namespace BankAdviser.DAL.EF
 {
     public class RDSContext : DbContext
     {       
-        public DbSet<Inquiry> Inquiries { get; set; }
+        public DbSet<Enquiry> Enquiries { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Deposit> Deposits { get; set; }        
         public DbSet<ReplyEntry> ReplyEntries { get; set; }
@@ -36,7 +36,7 @@ namespace BankAdviser.DAL.EF
                 Name = "ПриватБанк",
                 Type = BankType.State,
                 AssetsRank = 1,
-                Rating = 10
+                SustainabilityRating = 10
             });
             db.Banks.Add(new Bank
             {
@@ -45,7 +45,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Ощадбанк",
                 Type = BankType.State,
                 AssetsRank = 2,
-                Rating = 8
+                SustainabilityRating = 8
             });            
             db.Banks.Add(new Bank
             {
@@ -54,7 +54,7 @@ namespace BankAdviser.DAL.EF
                 Name = "ПУМБ",
                 Type = BankType.Private,
                 AssetsRank = 7,
-                Rating = 12
+                SustainabilityRating = 12
             });
             db.Banks.Add(new Bank
             {
@@ -63,7 +63,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Пивденный",
                 Type = BankType.Private,
                 AssetsRank = 16,
-                Rating = 16
+                SustainabilityRating = 16
             });
             db.Banks.Add(new Bank
             {
@@ -72,7 +72,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Райффайзен Банк Аваль",
                 Type = BankType.Foreign,
                 AssetsRank = 5,
-                Rating = 1
+                SustainabilityRating = 1
             });
             db.Banks.Add(new Bank
             {
@@ -81,7 +81,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Credit Agricole",
                 Type = BankType.Foreign,
                 AssetsRank = 13,
-                Rating = 3
+                SustainabilityRating = 3
             });
             #endregion
             

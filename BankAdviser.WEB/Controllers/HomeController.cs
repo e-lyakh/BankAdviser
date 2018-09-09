@@ -10,31 +10,35 @@ namespace BankAdviser.WEB.Controllers
 {
     public class HomeController : Controller
     {        
-        IInquiryManager inquiryManager;
+        IEnquiryManager enquiryManager;
         IReplyEntryManager replyManager;
 
-        public HomeController (IInquiryManager inquiryManager, IReplyEntryManager replyManager)
+        public HomeController (IEnquiryManager enquiryManager, IReplyEntryManager replyManager)
         {
-            this.inquiryManager = inquiryManager;
+            this.enquiryManager = enquiryManager;
             this.replyManager = replyManager;
         }
 
         public ActionResult Index()
         {
-            InquiryVM inquiryVM = new InquiryVM();
-            return View(inquiryVM);
+            EnquiryVM enquiryVM = new EnquiryVM();
+            return View(enquiryVM);
         }
         
         [HttpPost]
-        public ActionResult MakeInquiry(InquiryVM inquiryVM)
+        public ActionResult MakeEnquiry(EnquiryVM enquiryVM)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    
+                    //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EnquiryVM, EnquiryDTO>()).CreateMapper();
+                    ////Mapper.Initialize(cfg => cfg.CreateMap<EnquiryVM, EnquiryDTO>());
+                    //var enquiryDTO = mapper.Map<EnquiryVM, EnquiryDTO>(enquiryVM);
 
-                    return RedirectToAction("ShowReply", "Home", inquiryVM);
+                    //enquiryManager.SaveEnquiry(enquiryDTO);
+
+                    return RedirectToAction("ShowReply", "Home", enquiryVM);
                 }
                 catch (ValidationException ex)
                 {
@@ -42,22 +46,17 @@ namespace BankAdviser.WEB.Controllers
                 }
             }
 
-            return View(inquiryVM);
+            return View(enquiryVM);
         }
 
-        public ActionResult ShowReply(InquiryVM inquiryVM)
+        public ActionResult ShowReply(EnquiryVM enquiryVM)
         {
-            inquiryVM.UserIP = Request.UserHostAddress;            
-            string ip = GetIP();
-            var browser = HttpContext.Request.Browser;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EnquiryVM, EnquiryDTO>()).CreateMapper();            
+            var enquiryDTO = mapper.Map<EnquiryVM, EnquiryDTO>(enquiryVM);
 
+            int enqId = enquiryManager.SaveEnquiry(enquiryDTO);           
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<InquiryVM, InquiryDTO>()).CreateMapper();
-            var inquiryDTO = mapper.Map<InquiryVM, InquiryDTO>(inquiryVM);
-
-            int inqId = inquiryManager.SaveInquiry(inquiryDTO);
-
-            var replyEntriesDTO = replyManager.GetReplyEntriesByInquiry(inqId);
+            var replyEntriesDTO = replyManager.GetReplyEntries(enqId);
 
             var mapper2 = new MapperConfiguration(cfg => cfg.CreateMap<ReplyEntryDTO, ReplyEntryVM>()).CreateMapper();            
             var replyEntriesVM = mapper2.Map<List<ReplyEntryDTO>, List<ReplyEntryVM>>(replyEntriesDTO);
@@ -65,28 +64,11 @@ namespace BankAdviser.WEB.Controllers
             return View(replyEntriesVM);
         }
 
-        protected string GetIP()
-        {
-            System.Web.HttpContext context = System.Web.HttpContext.Current;
-            string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
-            if (!string.IsNullOrEmpty(ipAddress))
-            {
-                string[] addresses = ipAddress.Split(',');
-                if (addresses.Length != 0)
-                {
-                    return addresses[0];
-                }
-            }
-
-            return context.Request.ServerVariables["REMOTE_ADDR"];
-        }
-
         protected override void Dispose(bool disposing)
         {
-            inquiryManager.Dispose();
+            enquiryManager.Dispose();
             replyManager.Dispose();
             base.Dispose(disposing);
-        }        
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace BankAdviser.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {        
-        IRepository<Inquiry> Inquiries { get; }
+        IRepository<Enquiry> Enquiries { get; }
         IRepository<Bank> Banks { get; }
         IRepository<Deposit> Deposits { get; }
         IRepository<ReplyEntry> ReplyEntries { get; }

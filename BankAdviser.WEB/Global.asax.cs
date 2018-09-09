@@ -20,9 +20,9 @@ namespace BankAdviser.WEB
 
             // Dependencies injection:            
             NinjectModule uowModule = new NinjectUowModule();
-            NinjectModule inquiryManagerModule = new NinjectEmMolule();
+            NinjectModule enquiryManagerModule = new NinjectEmMolule();
             NinjectModule replyManagerModule = new NinjectRemMolule();
-            var kernel = new StandardKernel(uowModule, inquiryManagerModule, replyManagerModule);
+            var kernel = new StandardKernel(uowModule, enquiryManagerModule, replyManagerModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }

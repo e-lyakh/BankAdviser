@@ -12,11 +12,11 @@ namespace BankAdviser.BLL.Services
 {
     public class ReplyEntryManager : IReplyEntryManager
     {
-        private IUnitOfWork uow;
+        private IUnitOfWork db;
 
         public ReplyEntryManager(IUnitOfWork uow)
         {
-            this.uow = uow;
+            db = uow;
         }
         public void SaveReplyEntry(ReplyEntryDTO replyEntryDTO)
         {
@@ -25,8 +25,8 @@ namespace BankAdviser.BLL.Services
 
             replyEntry.Date = DateTime.Now;
 
-            uow.ReplyEntries.Create(replyEntry);
-            uow.Save();
+            db.ReplyEntries.Create(replyEntry);
+            db.Save();
         }
 
         public ReplyEntryDTO GetReplyEntry(int? id)
@@ -34,29 +34,29 @@ namespace BankAdviser.BLL.Services
             if (id == null)
                 throw new ValidationException("ReplyEntry ID is not set", "");
 
-            ReplyEntry replyEntry = uow.ReplyEntries.Get(id.Value);
+            ReplyEntry replyEntry = db.ReplyEntries.Get(id.Value);
 
             if (replyEntry == null)
                 throw new ValidationException("ReplyEntry is not found", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ReplyEntry, ReplyEntryDTO>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ReplyEntry, ReplyEntryDTO>()).CreateMapper();            
             ReplyEntryDTO replyEntryDTO = mapper.Map<ReplyEntry, ReplyEntryDTO>(replyEntry);
 
             return replyEntryDTO;
         }
 
-        public List<ReplyEntryDTO> GetReplyEntriesByInquiry (int? inquiryId)
+        public List<ReplyEntryDTO> GetReplyEntries(int? enquiryId)
         {
-            if (inquiryId == null)
-                throw new ValidationException("Inquiry ID id is not set", "");            
+            if (enquiryId == null)
+                throw new ValidationException("Enquiry ID id is not set", "");            
 
-            DepositManager depositManager = new DepositManager(uow);
-            var deposits = depositManager.SelectDeposits(inquiryId);
+            DepositManager depositManager = new DepositManager(db);
+            var deposits = depositManager.SelectDeposits(enquiryId);
 
-            BankManager bankManager = new BankManager(uow);
+            BankManager bankManager = new BankManager(db);
 
-            InquiryManager inquiryManager = new InquiryManager(uow);
-            InquiryDTO inquiry = inquiryManager.GetInquiry(inquiryId.Value);
+            EnquiryManager enquiryManager = new EnquiryManager(db);
+            EnquiryDTO enquiry = enquiryManager.GetEnquiry(enquiryId.Value);
 
             List<ReplyEntryDTO> replyEntries = new List<ReplyEntryDTO>();
 
@@ -66,9 +66,9 @@ namespace BankAdviser.BLL.Services
                 {
                     BankName = bankManager.GetBank(d.BankId).Name,
                     DepositName = d.Name,
-                    DepositRate = d.GetRateByTerm(inquiry.Term),
+                    DepositRate = d.GetRateByTerm(enquiry.Term),
                     DepositBonusInfo = d.BonusInfo,
-                    NetIncome = NetIncome.Calculate(inquiry, d),
+                    NetIncome = NetIncome.Calculate(enquiry, d),
                     Remark = d.Remark,
                     DepositUrl = d.Url
                 };
@@ -80,7 +80,7 @@ namespace BankAdviser.BLL.Services
 
         public void Dispose()
         {
-            uow.Dispose();
+            db.Dispose();
         }
     }
 }
