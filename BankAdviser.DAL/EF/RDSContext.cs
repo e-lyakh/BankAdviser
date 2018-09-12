@@ -8,7 +8,7 @@ namespace BankAdviser.DAL.EF
 {
     public class RDSContext : DbContext
     {       
-        public DbSet<Enquiry> Enquiries { get; set; }
+        public DbSet<Inquiry> Inquiries { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Deposit> Deposits { get; set; }        
         public DbSet<ReplyEntry> ReplyEntries { get; set; }
@@ -36,7 +36,7 @@ namespace BankAdviser.DAL.EF
                 Name = "ПриватБанк",
                 Type = BankType.State,
                 AssetsRank = 1,
-                SustainabilityRating = 10
+                Rating = 10
             });
             db.Banks.Add(new Bank
             {
@@ -45,7 +45,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Ощадбанк",
                 Type = BankType.State,
                 AssetsRank = 2,
-                SustainabilityRating = 8
+                Rating = 8
             });            
             db.Banks.Add(new Bank
             {
@@ -54,7 +54,7 @@ namespace BankAdviser.DAL.EF
                 Name = "ПУМБ",
                 Type = BankType.Private,
                 AssetsRank = 7,
-                SustainabilityRating = 12
+                Rating = 12
             });
             db.Banks.Add(new Bank
             {
@@ -63,7 +63,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Пивденный",
                 Type = BankType.Private,
                 AssetsRank = 16,
-                SustainabilityRating = 16
+                Rating = 16
             });
             db.Banks.Add(new Bank
             {
@@ -72,7 +72,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Райффайзен Банк Аваль",
                 Type = BankType.Foreign,
                 AssetsRank = 5,
-                SustainabilityRating = 1
+                Rating = 1
             });
             db.Banks.Add(new Bank
             {
@@ -81,7 +81,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Credit Agricole",
                 Type = BankType.Foreign,
                 AssetsRank = 13,
-                SustainabilityRating = 3
+                Rating = 3
             });
             #endregion
             
@@ -95,6 +95,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 2,
                 Name = "Стандарт",
                 Currency = Currency.UAH,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate1Months = 0.09,
                 Rate3Months = 0.105,
@@ -113,6 +115,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Стандарт",
                 Currency = Currency.USD,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate1Months = 0.01,
                 Rate3Months = 0.0175,
@@ -131,6 +135,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Стандарт",
                 Currency = Currency.EUR,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,                
                 Rate3Months = 0.01,
                 Rate6Months = 0.01,
@@ -149,6 +155,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Стандарт срочный",
                 Currency = Currency.UAH,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,                
                 Rate3Months = 0.1375,
                 Rate6Months = 0.145,
@@ -168,6 +176,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Стандарт срочный",
                 Currency = Currency.USD,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,                
                 Rate3Months = 0.025,
                 Rate6Months = 0.0275,
@@ -185,6 +195,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Стандарт срочный",
                 Currency = Currency.EUR,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.01,
                 Rate6Months = 0.0125,
@@ -203,6 +215,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Приват-вклад",
                 Currency = Currency.UAH,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate12Months = 0.07,
                 IsAddable = true,
@@ -217,6 +231,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Приват-вклад",
                 Currency = Currency.USD,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate12Months = 0.01,
                 IsAddable = true,
@@ -231,6 +247,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 1,
                 Name = "Приват-вклад",
                 Currency = Currency.EUR,
+                MinSum = 0,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate12Months = 0.005,
                 IsAddable = true,
@@ -248,7 +266,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Доходный",
                 Currency = Currency.UAH,
                 MinSum = 2500,
-                MaxSum = 200_000,
+                MaxSum = 200000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,                
                 Rate3Months = 0.128,
                 Rate6Months = 0.142,
@@ -267,7 +285,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.UAH,
-                MinSum = 200_000,               
+                MinSum = 200000,                
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.131,
                 Rate6Months = 0.145,
@@ -287,7 +306,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Доходный",
                 Currency = Currency.UAH,
                 MinSum = 2500,
-                MaxSum = 200_000,
+                MaxSum = 200000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.10,
                 Rate3Months = 0.133,
@@ -307,7 +326,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.UAH,
-                MinSum = 200_000,               
+                MinSum = 200000,               
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.103,
                 Rate3Months = 0.136,
@@ -328,7 +348,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Доходный",
                 Currency = Currency.USD,               
                 MinSum = 100,
-                MaxSum = 20_000,
+                MaxSum = 20000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.016,
                 Rate6Months = 0.024,
@@ -347,7 +367,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.USD,
-                MinSum = 20_000,               
+                MinSum = 20000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.017,
                 Rate6Months = 0.025,
@@ -367,7 +388,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Доходный",
                 Currency = Currency.USD,
                 MinSum = 100,
-                MaxSum = 20_000,
+                MaxSum = 20000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.008,
                 Rate3Months = 0.019,
@@ -387,7 +408,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.USD,
-                MinSum = 20_000,                
+                MinSum = 20000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.009,
                 Rate3Months = 0.02,
@@ -408,7 +430,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Доходный",
                 Currency = Currency.EUR,                
                 MinSum = 100,
-                MaxSum = 20_000,
+                MaxSum = 20000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.004,
                 Rate6Months = 0.009,
@@ -427,7 +449,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.EUR,
-                MinSum = 20_000,               
+                MinSum = 20000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.005,
                 Rate6Months = 0.01,
@@ -447,7 +470,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Доходный",
                 Currency = Currency.EUR,
                 MinSum = 100,
-                MaxSum = 20_000,
+                MaxSum = 20000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.0011,
                 Rate3Months = 0.007,
@@ -467,7 +490,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 3,
                 Name = "Доходный",
                 Currency = Currency.EUR,
-                MinSum = 20_000,               
+                MinSum = 20000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.002,
                 Rate3Months = 0.008,
@@ -490,7 +514,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Классический",
                 Currency = Currency.UAH,
                 MinSum = 2000,
-                MaxSum = 100_000,
+                MaxSum = 100000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.0605,
                 Rate2Months = 0.0605,
@@ -509,7 +533,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 5,
                 Name = "Классический",
                 Currency = Currency.UAH,
-                MinSum = 100_000,               
+                MinSum = 100000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.063,
                 Rate2Months = 0.063,
@@ -529,7 +554,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Классический",
                 Currency = Currency.USD,
                 MinSum = 500,
-                MaxSum = 10_000,
+                MaxSum = 10000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.001,
                 Rate2Months = 0.001,
@@ -548,7 +573,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 5,
                 Name = "Классический",
                 Currency = Currency.USD,
-                MinSum = 10_000,                
+                MinSum = 10000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.OnCompletion,
                 Rate1Months = 0.001,
                 Rate2Months = 0.001,
@@ -568,7 +594,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Сберегательный",
                 Currency = Currency.UAH,
                 MinSum = 500,
-                MaxSum = 100_000,
+                MaxSum = 100000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.0715,
                 Rate6Months = 0.0825,
@@ -585,7 +611,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 5,
                 Name = "Сберегательный",
                 Currency = Currency.UAH,
-                MinSum = 100_000,                
+                MinSum = 100000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.074,
                 Rate6Months = 0.085,
@@ -603,7 +630,7 @@ namespace BankAdviser.DAL.EF
                 Name = "Сберегательный",
                 Currency = Currency.USD,
                 MinSum = 100,
-                MaxSum = 10_000,
+                MaxSum = 10000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.001,
                 Rate6Months = 0.001,
@@ -620,7 +647,8 @@ namespace BankAdviser.DAL.EF
                 BankId = 5,
                 Name = "Сберегательный",
                 Currency = Currency.USD,
-                MinSum = 10_000,                
+                MinSum = 10000,
+                MaxSum = 100000000,
                 InterestsPeriodicity = InterestsPeriodicity.Monthly,
                 Rate3Months = 0.001,
                 Rate6Months = 0.001,

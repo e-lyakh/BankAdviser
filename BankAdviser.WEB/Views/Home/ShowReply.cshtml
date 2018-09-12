@@ -4,19 +4,24 @@
     ViewBag.Title = "Депозиты по запросу";
 }
 
-<h3 class="header">Депозиты по запросу:<span class="glyphicon glyphicon-asterisk"></span></h3>
+<h3 class="header-reply">ПОДОБРАННЫЕ ДЕПОЗИТЫ</h3>
 
+<p class="inquiry-summary h5 ml-3 pt-2 mb-4">
+    <span>@ViewBag.Inquiry.Sum</span> <span>@ViewBag.Inquiry.Currency</span> на <span>@ViewBag.Inquiry.Term</span> мес.
+</p>
 
-<table class="table">
+<table class="table table-hover col-12">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Банк</th>
-            <th scope="col">Депозит</th>
-            <th scope="col">%</th>
-            <th scope="col">*</th>
-            <th scope="col">Доход</th>
-            <th scope="col">Ссылка</th>
+            <th scope="col" style="width: 3%" class="text-center">#</th>
+            <th scope="col" style="width: 19%">@Html.DisplayNameFor(model => model[0].BankName)</th>
+            <th scope="col" style="width: 12%" class="text-center">@Html.DisplayNameFor(model => model[0].BankRating)</th>
+            <th scope="col" style="width: 12%" class="text-center">@Html.DisplayNameFor(model => model[0].BankAssetsRank)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model[0].DepositName)</th>
+            <th scope="col" style="width: 5%" class="text-right">@Html.DisplayNameFor(model => model[0].DepositRate)</th>
+            <th scope="col" style="width: 3%"></th>
+            <th scope="col" style="width: 12%" class="text-center">@Html.DisplayNameFor(model => model[0].NetIncome)</th>
+            <th scope="col" style="width: 10%"></th>
         </tr>
     </thead>
 
@@ -25,30 +30,65 @@
             int count = 1;
             string rate = String.Empty;
 
+            if (Model.Count() == 0)
+            {
+                <tr style="height: 100px;">
+                    <th scope="row" class="align-middle text-center">
+                    </th>
+                    <td class="align-middle" colspan="8">
+                        <i>Депозиты по выбранным критериям отсутствуют</i>
+                    </td>
+                </tr>
+            }
+
             foreach (var item in Model)
             {
                 rate = (item.DepositRate * 100).ToString() + "%";
-                <tr>
-                    <th scope="row">
+                <tr style="height: 100px;">
+                    <th scope="row" class="align-middle text-center">
                         @count.ToString()
                     </th>
-                    <td>
+                    <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.BankName)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepositName)
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.BankRating)
                     </td>
-                    <td>
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.BankAssetsRank)
+                    </td>
+                    <td class="align-middle">
+                        <i>"@Html.DisplayFor(modelItem => item.DepositName)"</i>
+                    </td>
+                    <td class="align-middle">
                         @rate
                     </td>
-                    <td data-toggle="popover" title="@Html.DisplayFor(modelItem => item.DepositBonusInfo)" data-content="Test">
-                        <p><span class="glyphicon glyphicon-asterisk" aria-hidden="true">Test</span></p>
+                    @if (item.DepositBonusInfo != null)
+                    {
+                    <td data-toggle="popover"
+                        title="@Html.DisplayFor(modelItem => item.DepositBonusInfo)"                        
+                        data-trigger="click"
+                        data-placement="right"
+                        class="align-middle text-left">
+
+                        <a href="#" class="btn btn-outline-primary btn-sm disabled" 
+                           style="border-radius: 50%; width: 23px; padding: 0px 1px 1px 0px">
+                            <b><i>і</i></b>
+                        </a>
+                    </td>                    
+                    
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td class="align-middle text-center">
+                        @item.NetIncome.ToString("0.#")
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NetIncome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepositUrl)
+                    <td class="align-middle">
+                        <button class="btn btn-outline-primary btn-sm" onclick="window.open('@Html.DisplayFor(modelItem => item.DepositUrl)','_blank')" type="button">
+                            Оформить
+                        </button>
                     </td>
                 </tr>
                 count++;
@@ -58,9 +98,20 @@
 
 </table>
 
+<p class="table-bottomline col-12"></p>
+<p class="endnote col-11"><b>Примечания:</b></p>
+<p class="endnote col-11">Доход рассчитан как чистый доход от депозита за вычетом налогов (18% подоходный налог, 1,5% военный сбор) и без учета бонусных надбавок</p>
+<p class="endnote col-11">Рейтинг устойчивости банков определен согласно данным сайта <a href="https://minfin.com.ua/banks/rating/" target="_blank" rel="noopener noreferrer">minfin.com.ua</a></p>
+<p class="endnote col-11">Величина банков определена по размерам активов по данным сайта <a href="http://www.prostobank.ua/spravochniki/reytingi_bankov/6/2018/2" target="_blank" rel="noopener noreferrer">prostobank.ua</a></p>
+<p class="footer-line"></p>
 
 @section scripts {
     <script type="text/javascript">
-        
-    </script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+        //(function () {
+        //    document.querySelectorAll('[data-toggle="popover"]').popover();
+        //})();        
+    </script>    
 }

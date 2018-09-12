@@ -42,25 +42,7 @@ namespace BankAdviser.BLL.Services
             BankDTO bankDTO = mapper.Map<Bank, BankDTO>(bank);
 
             return bankDTO;
-        }
-
-        public Dictionary<DepositDTO, BankDTO> GetBanksByDeposits(IEnumerable<DepositDTO> deposits)
-        {
-            //if (deposits == null)
-            //    throw new ValidationException("Deposits are not set", "");
-
-            //var banksForDeposits = new Dictionary<Deposit, Bank>();
-
-            //DepositManager depositManager = new DepositManager(db);
-            //var depositsByEnquiry = depositManager.SelectDeposits(enquiryId);
-
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ReplyEntry, ReplyEntryDTO>()).CreateMapper();
-            //IEnumerable<ReplyEntryDTO> replyEntriesDTO = mapper.Map<IEnumerable<ReplyEntry>, List<ReplyEntryDTO>>(db.ReplyEntries.GetAll());
-
-            //return replyEntriesDTO;
-
-            throw new NotImplementedException();
-        }
+        }        
 
         public void Dispose()
         {

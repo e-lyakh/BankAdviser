@@ -1,6 +1,6 @@
 ﻿namespace BankAdviser.DAL.Entities
 {
-    public static class BankType
+    public class BankType
     {
         public static string State { get; } = "State";
         public static string Private { get; } = "Private";

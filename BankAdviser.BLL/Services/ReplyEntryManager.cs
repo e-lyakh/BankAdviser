@@ -45,18 +45,18 @@ namespace BankAdviser.BLL.Services
             return replyEntryDTO;
         }
 
-        public List<ReplyEntryDTO> GetReplyEntries(int? enquiryId)
+        public List<ReplyEntryDTO> GetReplyEntries(int? inquiryId)
         {
-            if (enquiryId == null)
-                throw new ValidationException("Enquiry ID id is not set", "");            
+            if (inquiryId == null)
+                throw new ValidationException("Inquiry ID id is not set", "");            
 
             DepositManager depositManager = new DepositManager(db);
-            var deposits = depositManager.SelectDeposits(enquiryId);
+            var deposits = depositManager.SelectDeposits(inquiryId);
 
             BankManager bankManager = new BankManager(db);
 
-            EnquiryManager enquiryManager = new EnquiryManager(db);
-            EnquiryDTO enquiry = enquiryManager.GetEnquiry(enquiryId.Value);
+            InquiryManager inquiryManager = new InquiryManager(db);
+            InquiryDTO inquiry = inquiryManager.GetInquiry(inquiryId.Value);
 
             List<ReplyEntryDTO> replyEntries = new List<ReplyEntryDTO>();
 
@@ -66,9 +66,11 @@ namespace BankAdviser.BLL.Services
                 {
                     BankName = bankManager.GetBank(d.BankId).Name,
                     DepositName = d.Name,
-                    DepositRate = d.GetRateByTerm(enquiry.Term),
+                    DepositRate = d.GetRateByTerm(inquiry.Term),
                     DepositBonusInfo = d.BonusInfo,
-                    NetIncome = NetIncome.Calculate(enquiry, d),
+                    NetIncome = NetIncome.Calculate(inquiry, d),
+                    BankRating = bankManager.GetBank(d.BankId).Rating,
+                    BankAssetsRank = bankManager.GetBank(d.BankId).AssetsRank,
                     Remark = d.Remark,
                     DepositUrl = d.Url
                 };

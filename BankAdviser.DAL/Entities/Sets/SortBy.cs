@@ -1,9 +1,9 @@
 ﻿namespace BankAdviser.DAL.Entities
 {
-    public static class SortBy
+    public class SortBy
     {
-        public static string State { get; } = "Profitability";        
-        public static string Foreign { get; } = "BanksRating";
-        public static string Private { get; } = "BanksAssets";
+        public static string Profitability { get; } = "Profitability";        
+        public static string BanksRating { get; } = "BanksRating";
+        public static string BanksAssets { get; } = "BanksAssets";
     }
 }

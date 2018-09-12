@@ -29,7 +29,7 @@ textarea {
     margin-left: 13px;
 }
 
-.header {
+.header-inquiry {
     padding-top: 70px;
     padding-bottom: 25px;
     padding-left: 15px;
@@ -39,20 +39,56 @@ textarea {
     font-size: 22px;
 }
 
+.header-reply {
+    padding-top: 70px;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    font-weight: 600;
+    font-size: 21px;
+}
 
 form {
     margin-left: 15px;
 }
 
-
-.btn-outline-success {
+.btn-select {
     margin-left: 190px;
 }
 
+.inquiry-summary {
+    color: mediumseagreen;
+}
 
-/* Table styles: */
+.table-bottomline {
+    margin-bottom: 20px;
+    border-top: 1px solid lightgray;
+    padding-top: 10px;
+}
 
-tr.border_bottom td {
-    border-bottom: 1pt solid;
-    border-bottom-color: lightgray;    
+.endnote {
+    font-size: 13px;
+    font-style: italic;
+    color: dimgray;
+    line-height: 75%;
+}
+
+.footer-line {
+    margin-bottom: 30px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 14px;
+    border-top: 1px solid lightgray;
+    color: gray
+}
+
+.validation-text {
+    color: red;
+    font-size: 15px;
 }

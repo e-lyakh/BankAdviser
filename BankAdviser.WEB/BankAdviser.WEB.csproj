@@ -186,7 +186,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\EnquiryVM.cs" />
+    <Compile Include="Models\InquiryVM.cs" />
     <Compile Include="Models\ReplyEntryVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\NinjectRemMolule.cs" />

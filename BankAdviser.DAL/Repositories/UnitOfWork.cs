@@ -8,7 +8,7 @@ namespace BankAdviser.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private RDSContext db;
-        private EnquiriesRepository enquiriesRepository;
+        private InquiriesRepository inquiriesRepository;
         private BanksRepository banksRepository;        
         private DepositsRepository depositsRepository;
         private ReplyEntriesRepository replyEntriesRepository;
@@ -18,13 +18,13 @@ namespace BankAdviser.DAL.Repositories
             db = new RDSContext();
         }
         
-        public IRepository<Enquiry> Enquiries
+        public IRepository<Inquiry> Inquiries
         {
             get
             {
-                if (enquiriesRepository == null)
-                    enquiriesRepository = new EnquiriesRepository(db);
-                return enquiriesRepository;
+                if (inquiriesRepository == null)
+                    inquiriesRepository = new InquiriesRepository(db);
+                return inquiriesRepository;
             }
         }
 

@@ -9,6 +9,6 @@ namespace BankAdviser.DAL.Entities
         public string Name { get; set; }
         public string Type { get; set; }
         public int AssetsRank { get; set; }
-        public int SustainabilityRating { get; set; }
+        public int Rating { get; set; }
     }    
 }

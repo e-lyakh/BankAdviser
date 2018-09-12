@@ -8,6 +8,8 @@
         public double DepositRate { get; set; }
         public string DepositBonusInfo { get; set; }
         public double NetIncome { get; set; }
+        public int BankRating { get; set; }
+        public int BankAssetsRank { get; set; }
         public string Remark { get; set; }
         public string DepositUrl { get; set; }
     }
