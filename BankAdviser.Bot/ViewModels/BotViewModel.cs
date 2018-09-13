@@ -18,6 +18,11 @@ namespace BankAdviser.Bot.ViewModels
             this.mainWindow = mainWindow;
             this.botManager = botManager;
 
+            IsRunBtnEnabled = true;
+            IsStopBtnEnabled = false;
+
+            gifVisibility = Visibility.Hidden;
+
             logCollection = new ObservableCollection<LogEntry>();           
             logCollection.Add(new LogEntry
             {
@@ -37,10 +42,6 @@ namespace BankAdviser.Bot.ViewModels
                 Term = 12,
                 Status = "✓"
             });
-
-            IsRunBtnEnabled = true;
-            IsStopBtnEnabled = false;
-            gifVisibility = Visibility.Hidden;
         }
 
         private Window mainWindow;
@@ -63,7 +64,12 @@ namespace BankAdviser.Bot.ViewModels
         private int banksProcessed;
         private int depositsCollected;
 
-        public event PropertyChangedEventHandler PropertyChanged;        
+        private string currentBank;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public delegate void ScrollDownHandler();
+        public event ScrollDownHandler OnLogUpdated;
 
         public bool IsRunBtnEnabled
         {
@@ -153,9 +159,7 @@ namespace BankAdviser.Bot.ViewModels
                         botCancTokenSource = new CancellationTokenSource();
                         botCancToken = botCancTokenSource.Token;
                         botManager.CancToken = botCancToken;
-                        botTask.Start();                        
-
-                        
+                        botTask.Start();
                     }));
             }
         }
@@ -166,12 +170,12 @@ namespace BankAdviser.Bot.ViewModels
                 return stopCommand ??
                     (stopCommand = new RelayCommand(obj =>
                     {
-                        if (botManager != null && botManager.IsRunning)
-                            botCancTokenSource.Cancel();
-
                         IsStopBtnEnabled = false;
                         IsRunBtnEnabled = true;
                         GifVisibility = Visibility.Hidden;
+
+                        if (botManager != null && botManager.IsRunning)
+                            botCancTokenSource.Cancel();
                     }));
             }
         }  
@@ -181,6 +185,7 @@ namespace BankAdviser.Bot.ViewModels
             mainWindow.Dispatcher.Invoke(() =>
             {
                 if (deposit != null)
+                {
                     logCollection.Add(new LogEntry
                     {
                         Time = DateTime.Now,
@@ -190,13 +195,28 @@ namespace BankAdviser.Bot.ViewModels
                         Term = deposit.GetTerm(),
                         Status = "✓"
                     });
+
+                    DepositsCollected++;
+
+                    if (currentBank == null)
+                        currentBank = bank.Name;
+                    else if (bank.Name != currentBank)
+                    {
+                        currentBank = bank.Name;
+                        BanksProcessed++;
+                    }
+                }                    
                 else
+                {
                     logCollection.Add(new LogEntry
                     {
                         Time = DateTime.Now,
                         Bank = "<Error>",
                         Status = "✗"
                     });
+                }
+
+                OnLogUpdated?.Invoke();
             });
         }
 

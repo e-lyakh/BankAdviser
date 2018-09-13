@@ -13,9 +13,17 @@ namespace BankAdviser.Bot.Views
             InitializeComponent();
             
             vm = new BotViewModel(this, botManager);
-            botManager.DepositCollected += vm.OnDepositCollected;
 
             DataContext = vm;
+
+            botManager.DepositCollected += vm.OnDepositCollected;
+            vm.OnLogUpdated += ScrollDownLog;
+        }
+
+        private void ScrollDownLog()
+        {
+            if (dgLog.Items.Count > 0)
+                dgLog.ScrollIntoView(dgLog.Items[dgLog.Items.Count - 1]);
         }
 
         private void Window_Closed(object sender, System.EventArgs e)
