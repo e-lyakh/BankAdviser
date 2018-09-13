@@ -4,13 +4,13 @@ using Ninject.Modules;
 
 namespace BankAdviser.BLL.Infrastructure
 {
-    public class NinjectUowModule : NinjectModule
+    public class UowNModule : NinjectModule
     {
         private string connectionString;
-        public NinjectUowModule()
+        public UowNModule()
         {            
         }
-        public NinjectUowModule(string connection)
+        public UowNModule(string connection)
         {
             connectionString = connection;
         }

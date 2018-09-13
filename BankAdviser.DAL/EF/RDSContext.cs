@@ -1,7 +1,6 @@
 ﻿using BankAdviser.DAL.Entities;
 using BankAdviser.DAL.Services;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace BankAdviser.DAL.EF

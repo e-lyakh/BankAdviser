@@ -35,6 +35,74 @@
 
         public double NetIncome { get; set; }
 
+        public double GetTerm()
+        {
+            if (Rate1Weeks > 0)
+                return 0.25;
+            if (Rate2Weeks > 0)
+                return 0.5;
+            if (Rate1Months > 0)
+                return 1;
+            if (Rate2Months > 0)
+                return 2;
+            if (Rate3Months > 0)
+                return 3;
+            if (Rate4Months > 0)
+                return 4;
+            if (Rate6Months > 0)
+                return 6;
+            if (Rate7Months > 0)
+                return 7;
+            if (Rate9Months > 0)
+                return 9;
+            if (Rate12Months > 0)
+                return 12;
+            if (Rate13Months > 0)
+                return 13;
+            if (Rate18Months > 0)
+                return 18;
+            if (Rate24Months > 0)
+                return 24;
+            if (Rate36Months > 0)
+                return 36;
+
+            return 0;
+        }
+
+        public bool HasTerm(int months, int weeks = 0)
+        {
+            if (weeks == 1 && Rate1Weeks > 0)
+                return true;
+            if (weeks == 2 && Rate2Weeks > 0)
+                return true;
+            if (months == 1 && Rate1Months > 0)
+                return true;
+            if (months == 2 && Rate2Months > 0)
+                return true;
+            if (months == 3 && Rate3Months > 0)
+                return true;
+            if (months == 4 && Rate4Months > 0)
+                return true;
+            if (months == 6 && Rate6Months > 0)
+                return true;
+            if (months == 7 && Rate7Months > 0)
+                return true;
+            if (months == 9 && Rate9Months > 0)
+                return true;
+            if (months == 12 && Rate12Months > 0)
+                return true;
+            if (months == 13 && Rate13Months > 0)
+                return true;
+            if (months == 18 && Rate18Months > 0)
+                return true;
+            if (months == 24 && Rate24Months > 0)
+                return true;
+            if (months == 36 && Rate36Months > 0)
+                return true;
+
+            return false;
+        }
+
         public double GetRateByTerm(int months, int weeks = 0)
         {
             if (weeks == 1)

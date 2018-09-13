@@ -19,7 +19,7 @@ namespace BankAdviser.WEB
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Dependencies injection:            
-            NinjectModule uowModule = new NinjectUowModule();
+            NinjectModule uowModule = new UowNModule();
             NinjectModule inquiryManagerModule = new NinjectEmMolule();
             NinjectModule replyManagerModule = new NinjectRemMolule();
             var kernel = new StandardKernel(uowModule, inquiryManagerModule, replyManagerModule);

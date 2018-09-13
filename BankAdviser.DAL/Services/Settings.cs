@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace BankAdviser.DAL.Services
 {
@@ -8,7 +9,7 @@ namespace BankAdviser.DAL.Services
         private static readonly string dbName = Read("RDS_DBNAME");
         private static readonly string userName = Read("RDS_USERNAME");
         private static readonly string password = Read("RDS_PASSWORD");
-        private static readonly string port = Read("RDS_PORT");
+        private static readonly string port = Read("RDS_PORT");        
 
         public static string ConnectionString
         {
@@ -18,16 +19,26 @@ namespace BankAdviser.DAL.Services
             }
         }
 
+        public static double WaitElement { get; } = Convert.ToDouble(Read("WaitElementToLoad"));
+
         private static string Read(string key)
         {
             try
             {
                 var appSettings = ConfigurationManager.AppSettings;
-                string value = appSettings[key] ?? "not found";
+                string value = appSettings[key] ?? null;
+
+                if (value == null)
+                    throw new Exception($"Settings are not found (key = {key})");
 
                 return value;
             }
             catch (ConfigurationErrorsException)
+            {
+                // TODO: exception logging
+                return null;
+            }
+            catch (Exception ex)
             {
                 // TODO: exception logging
                 return null;

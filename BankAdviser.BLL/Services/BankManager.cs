@@ -5,18 +5,18 @@ using BankAdviser.BLL.Interfaces;
 using BankAdviser.DAL.Entities;
 using BankAdviser.DAL.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace BankAdviser.BLL.Services
 {
     public class BankManager : IBankManager
     {
-        private IUnitOfWork db;
-
         public BankManager(IUnitOfWork uow)
         {
             db = uow;
         }
+
+        private IUnitOfWork db;
+
         public void SaveBank(BankDTO bankDTO)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<BankDTO, Bank>()).CreateMapper();            

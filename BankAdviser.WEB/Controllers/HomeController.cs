@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BankAdviser.BLL.DTO;
-using BankAdviser.BLL.Infrastructure;
 using BankAdviser.BLL.Interfaces;
 using BankAdviser.WEB.Models;
 using System.Collections.Generic;
