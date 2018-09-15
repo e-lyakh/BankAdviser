@@ -12,21 +12,23 @@ namespace BankAdviser.BLL.WPO
     {
         public WebPage(IWebDriver driver)
         {
-            this.driver = driver;
+            this.driver = driver;            
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(Settings.WaitElement));
             action = new Actions(driver);
         }
 
-        protected string baseUrl;
+        protected string pageUrl;
 
         protected IWebDriver driver;
         protected WebDriverWait wait;
         protected Actions action;
 
-        public string BaseUrl
+        public string PageUrl
         {
-            get { return baseUrl; }
+            get { return pageUrl; }
         }
+
+        public bool IsDriverRunning { get; set; }
 
         private void SwitchToNewTab()
         {
@@ -36,7 +38,7 @@ namespace BankAdviser.BLL.WPO
                 if (driver.Title == "New Tab" || driver.Title == "Новая вкладка")
                     break;
             }
-        }
+        }                
 
         protected IWebElement FindElement(By by)
         {
@@ -222,7 +224,7 @@ namespace BankAdviser.BLL.WPO
 
         public void GoToPage(WebPage page)
         {
-            driver.Navigate().GoToUrl(page.BaseUrl);
+            driver.Navigate().GoToUrl(page.PageUrl);
         }
         public void GoToUrl(string url)
         {

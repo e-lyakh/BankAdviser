@@ -8,6 +8,7 @@ namespace BankAdviser.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private RDSContext db;
+
         private InquiriesRepository inquiriesRepository;
         private BanksRepository banksRepository;        
         private DepositsRepository depositsRepository;
@@ -17,7 +18,12 @@ namespace BankAdviser.DAL.Repositories
         {
             db = new RDSContext();
         }
-        
+
+        public UnitOfWork(string connectionString)
+        {
+            db = new RDSContext(connectionString);
+        }
+
         public IRepository<Inquiry> Inquiries
         {
             get
@@ -64,7 +70,6 @@ namespace BankAdviser.DAL.Repositories
         }
 
         private bool disposed = false;
-
         public virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -76,7 +81,6 @@ namespace BankAdviser.DAL.Repositories
                 disposed = true;
             }
         }
-
         public void Dispose()
         {
             Dispose(true);

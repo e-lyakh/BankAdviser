@@ -12,12 +12,13 @@ namespace BankAdviser.BLL.Services
 {
     public class ReplyEntryManager : IReplyEntryManager
     {
-        private IUnitOfWork db;
-
         public ReplyEntryManager(IUnitOfWork uow)
         {
-            db = uow;
+            this.uow = uow;
         }
+
+        private IUnitOfWork uow;
+
         public void SaveReplyEntry(ReplyEntryDTO replyEntryDTO)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ReplyEntryDTO, ReplyEntry>()).CreateMapper();            
@@ -25,8 +26,8 @@ namespace BankAdviser.BLL.Services
 
             replyEntry.Date = DateTime.Now;
 
-            db.ReplyEntries.Create(replyEntry);
-            db.Save();
+            uow.ReplyEntries.Create(replyEntry);
+            uow.Save();
         }
 
         public ReplyEntryDTO GetReplyEntry(int? id)
@@ -34,7 +35,7 @@ namespace BankAdviser.BLL.Services
             if (id == null)
                 throw new ValidationException("ReplyEntry ID is not set", "");
 
-            ReplyEntry replyEntry = db.ReplyEntries.Get(id.Value);
+            ReplyEntry replyEntry = uow.ReplyEntries.Get(id.Value);
 
             if (replyEntry == null)
                 throw new ValidationException("ReplyEntry is not found", "");
@@ -50,12 +51,12 @@ namespace BankAdviser.BLL.Services
             if (inquiryId == null)
                 throw new ValidationException("Inquiry ID id is not set", "");            
 
-            DepositManager depositManager = new DepositManager(db);
+            DepositManager depositManager = new DepositManager(uow);
             var deposits = depositManager.SelectDeposits(inquiryId);
 
-            BankManager bankManager = new BankManager(db);
+            BankManager bankManager = new BankManager(uow);
 
-            InquiryManager inquiryManager = new InquiryManager(db);
+            InquiryManager inquiryManager = new InquiryManager(uow);
             InquiryDTO inquiry = inquiryManager.GetInquiry(inquiryId.Value);
 
             List<ReplyEntryDTO> replyEntries = new List<ReplyEntryDTO>();
@@ -82,7 +83,7 @@ namespace BankAdviser.BLL.Services
 
         public void Dispose()
         {
-            db.Dispose();
+            uow.Dispose();
         }
     }
 }

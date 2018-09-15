@@ -9,7 +9,7 @@ namespace BankAdviser.DAL.Services
         private static readonly string dbName = Read("RDS_DBNAME");
         private static readonly string userName = Read("RDS_USERNAME");
         private static readonly string password = Read("RDS_PASSWORD");
-        private static readonly string port = Read("RDS_PORT");        
+        private static readonly string port = Read("RDS_PORT");
 
         public static string ConnectionString
         {
@@ -20,6 +20,7 @@ namespace BankAdviser.DAL.Services
         }
 
         public static double WaitElement { get; } = Convert.ToDouble(Read("WaitElementToLoad"));
+        public static bool IsFfMinimized { get; } = Convert.ToBoolean(Read("IsFfMinimized"));
 
         private static string Read(string key)
         {

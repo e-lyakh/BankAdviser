@@ -11,5 +11,6 @@ namespace BankAdviser.BLL.Interfaces
         bool IsRunning { get; set; }
         
         event DepositStatusHandler DepositCollected;
+        event AllWorkDoneNotifier OnAllWorkDone;
     }
 }

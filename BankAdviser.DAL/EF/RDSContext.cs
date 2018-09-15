@@ -19,8 +19,12 @@ namespace BankAdviser.DAL.EF
 
         public RDSContext() : base(Settings.ConnectionString)
         {
-        }        
-    }    
+        }
+
+        public RDSContext(string connectionStr) : base(connectionStr)
+        {
+        }
+    }
 
     public class StoreDbInitializer : DropCreateDatabaseIfModelChanges<RDSContext>
     {

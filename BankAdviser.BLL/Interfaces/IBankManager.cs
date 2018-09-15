@@ -10,7 +10,8 @@ namespace BankAdviser.BLL.Interfaces
     public interface IBankManager
     {
         void SaveBank(BankDTO bankDTO);
-        BankDTO GetBank(int? bankId);       
+        BankDTO GetBank(int? bankId);
+        IEnumerable<BankDTO> GetAll();
         void Dispose();
     }
 }

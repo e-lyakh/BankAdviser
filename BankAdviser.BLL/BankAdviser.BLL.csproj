@@ -41,6 +41,7 @@
       <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -67,7 +68,13 @@
     <Compile Include="DTO\InquiryDTO.cs" />
     <Compile Include="DTO\ReplyEntryDTO.cs" />
     <Compile Include="DTO\DepositDTO.cs" />
-    <Compile Include="Infrastructure\UowNModule.cs" />
+    <Compile Include="Infrastructure\Old\BankManagerNModule.cs" />
+    <Compile Include="Infrastructure\Old\DepositManagerNModule.cs" />
+    <Compile Include="Infrastructure\Old\BotManagerNModule.cs" />
+    <Compile Include="Infrastructure\Old\InquiryManagerNModule.cs" />
+    <Compile Include="Infrastructure\NjModule.cs" />
+    <Compile Include="Infrastructure\Old\ReplyManagerNModule.cs" />
+    <Compile Include="Infrastructure\Old\UowNModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\IBankManager.cs" />
     <Compile Include="Interfaces\IDepositManager.cs" />
@@ -77,10 +84,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BankManager.cs" />
     <Compile Include="Services\BotManager.cs" />
+    <Compile Include="Services\MyConvertTo.cs" />
     <Compile Include="Services\DepositManager.cs" />
     <Compile Include="Services\InquiryManager.cs" />
     <Compile Include="Services\ReplyEntryManager.cs" />
-    <Compile Include="WPO\PrivatBankPage.cs" />
+    <Compile Include="WPO\Pumb.cs" />
+    <Compile Include="WPO\Aval.cs" />
+    <Compile Include="WPO\BankPage.cs" />
     <Compile Include="WPO\WebPage.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +100,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

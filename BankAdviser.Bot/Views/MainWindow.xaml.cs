@@ -17,6 +17,7 @@ namespace BankAdviser.Bot.Views
             DataContext = vm;
 
             botManager.DepositCollected += vm.OnDepositCollected;
+            botManager.OnAllWorkDone += vm.OnAllWorkDone;
             vm.OnLogUpdated += ScrollDownLog;
         }
 

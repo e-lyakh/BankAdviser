@@ -1,5 +1,4 @@
 ﻿using BankAdviser.BLL.Infrastructure;
-using BankAdviser.WEB.Util;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
@@ -19,10 +18,15 @@ namespace BankAdviser.WEB
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Dependencies injection:            
-            NinjectModule uowModule = new UowNModule();
-            NinjectModule inquiryManagerModule = new NinjectEmMolule();
-            NinjectModule replyManagerModule = new NinjectRemMolule();
-            var kernel = new StandardKernel(uowModule, inquiryManagerModule, replyManagerModule);
+            //NinjectModule uowModule = new UowNModule();            
+            //NinjectModule inquiryManagerModule = new InquiryManagerNModule();
+            //NinjectModule replyManagerModule = new ReplyManagerNModule();
+            //var kernel = new StandardKernel(uowModule, inquiryManagerModule, replyManagerModule);
+
+            //NinjectModule generalModule = new NjModule();
+            NinjectModule generalModule = new NjModule("DefaultConnection");
+            var kernel = new StandardKernel(generalModule);
+
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }

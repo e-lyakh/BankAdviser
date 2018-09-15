@@ -10,12 +10,12 @@ namespace BankAdviser.BLL.Services
 {
     public class InquiryManager : IInquiryManager
     {
-        private IUnitOfWork db;
-
         public InquiryManager(IUnitOfWork uow)
         {
-            db = uow;
+            this.uow = uow;
         }
+
+        private IUnitOfWork uow;
 
         public int SaveInquiry(InquiryDTO inquiryDTO)
         {
@@ -24,8 +24,8 @@ namespace BankAdviser.BLL.Services
 
             inquiry.Date = DateTime.Now;
 
-            db.Inquiries.Create(inquiry);
-            db.Save();
+            uow.Inquiries.Create(inquiry);
+            uow.Save();
 
             return inquiry.Id;
         }
@@ -35,7 +35,7 @@ namespace BankAdviser.BLL.Services
             if (inqId == null)
                 throw new ValidationException("Inquiry ID is not set", "");
 
-            Inquiry inquiry = db.Inquiries.Get(inqId.Value);
+            Inquiry inquiry = uow.Inquiries.Get(inqId.Value);
 
             if (inquiry == null)
                 throw new ValidationException("Inquiry is not found", "");
@@ -48,7 +48,7 @@ namespace BankAdviser.BLL.Services
 
         public void Dispose()
         {
-            db.Dispose();
+            uow.Dispose();
         }
     }
 }

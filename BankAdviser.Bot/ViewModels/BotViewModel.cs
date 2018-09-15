@@ -180,7 +180,7 @@ namespace BankAdviser.Bot.ViewModels
             }
         }  
         
-        public void OnDepositCollected(BankDTO bank, DepositDTO deposit)
+        public void OnDepositCollected(string bank, DepositDTO deposit)
         {
             mainWindow.Dispatcher.Invoke(() =>
             {
@@ -189,7 +189,7 @@ namespace BankAdviser.Bot.ViewModels
                     logCollection.Add(new LogEntry
                     {
                         Time = DateTime.Now,
-                        Bank = bank.Name,
+                        Bank = bank,
                         Deposit = deposit.Name,
                         Currency = deposit.Currency,
                         Term = deposit.GetTerm(),
@@ -199,10 +199,10 @@ namespace BankAdviser.Bot.ViewModels
                     DepositsCollected++;
 
                     if (currentBank == null)
-                        currentBank = bank.Name;
-                    else if (bank.Name != currentBank)
+                        currentBank = bank;
+                    else if (bank != currentBank)
                     {
-                        currentBank = bank.Name;
+                        currentBank = bank;
                         BanksProcessed++;
                     }
                 }                    
@@ -215,6 +215,20 @@ namespace BankAdviser.Bot.ViewModels
                         Status = "✗"
                     });
                 }
+
+                OnLogUpdated?.Invoke();
+            });
+        }
+
+        public void OnAllWorkDone()
+        {            
+            mainWindow.Dispatcher.Invoke(() =>
+            {
+                logCollection.Add(new LogEntry
+                {
+                    Time = DateTime.Now,
+                    Bank = "All work done"
+                });
 
                 OnLogUpdated?.Invoke();
             });

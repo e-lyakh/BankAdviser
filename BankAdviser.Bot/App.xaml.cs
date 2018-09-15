@@ -1,6 +1,6 @@
 ﻿using BankAdviser.BLL.Infrastructure;
-using BankAdviser.Bot.Util;
 using BankAdviser.Bot.Views;
+using BankAdviser.DAL.Services;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
@@ -25,13 +25,21 @@ namespace BankAdviser.Bot
 
         private void ConfigureContainer()
         {
-            //container = new StandardKernel();
-            //container.Bind<IBotManager>().To<BotManager>().InTransientScope();
+            //NinjectModule uowModule = new UowNModule();
+            ////NinjectModule uowModule = new UowNModule(Settings.ConnectionString);
+            //NinjectModule botManModule = new BotManagerNModule();
+            //NinjectModule depositManModule = new DepositManagerNModule();
+            //NinjectModule bankManModule = new BankManagerNModule();
+            //container = new StandardKernel(uowModule, botManModule, depositManModule, bankManModule);
+            //DependencyResolver.SetResolver(new NinjectDependencyResolver(container));
 
-            NinjectModule uowModule = new UowNModule();
-            NinjectModule bmModule = new BotManagerNModule();            
-            container = new StandardKernel(uowModule, bmModule);
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(container));
+            //NinjectModule generalModule = new NjModule();
+            NinjectModule generalModule = new NjModule("DefaultConnection");
+            //container = new StandardKernel(generalModule);
+            //DependencyResolver.SetResolver(new NinjectDependencyResolver(container));
+
+            container = new StandardKernel(generalModule);
+            //container.Bind<IBotManager>().To<BotManager>().InTransientScope();
         }
 
         private void ComposeObjects()

@@ -71,7 +71,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="10"/>
             <RowDefinition/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="75"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
@@ -156,39 +156,44 @@
             Grid.ColumnSpan="3"
             FontSize="12">
             <GroupBox.Header>
-                <Label Foreground="Gray" FontSize="12">Aggregated</Label>
+                <Label Foreground="Gray" FontSize="12">Total Statistics</Label>
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="29.33"/>
+                    <ColumnDefinition Width="170.67"/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
 
                 <Label
-                    Content="Banks processed:"
-                    Grid.Column="0"
+                    Content="Banks:"
+                    Grid.Column="1"
                     Style="{StaticResource Label}"
-                    HorizontalAlignment="Right"/>
+                    HorizontalAlignment="Right"
+                    Margin="0,0,0,12"/>
                 <TextBox
                     Name="tbTotalBanks"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Text="{Binding BanksProcessed}"
                     Style="{StaticResource TextBox}"
-                    HorizontalAlignment="Left"/>
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,12"/>
 
                 <Label
-                    Content="Deposits collected:"
-                    Grid.Column="2"
+                    Content="Deposits:"
+                    Grid.Column="3"
                     Style="{StaticResource Label}"
-                    HorizontalAlignment="Right"/>
+                    HorizontalAlignment="Right"
+                    Margin="0,0,0,12"/>
                 <TextBox
                     Name="tbTotalDeposits"
-                    Grid.Column="3"
+                    Grid.Column="4"
                     Text="{Binding DepositsCollected}"
                     Style="{StaticResource TextBox}"
-                    HorizontalAlignment="Left"/>
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,12"/>
 
             </Grid>
         </GroupBox>

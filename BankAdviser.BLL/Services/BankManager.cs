@@ -5,6 +5,8 @@ using BankAdviser.BLL.Interfaces;
 using BankAdviser.DAL.Entities;
 using BankAdviser.DAL.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BankAdviser.BLL.Services
 {
@@ -12,10 +14,10 @@ namespace BankAdviser.BLL.Services
     {
         public BankManager(IUnitOfWork uow)
         {
-            db = uow;
+            this.uow = uow;
         }
 
-        private IUnitOfWork db;
+        private IUnitOfWork uow;
 
         public void SaveBank(BankDTO bankDTO)
         {
@@ -24,8 +26,8 @@ namespace BankAdviser.BLL.Services
 
             bank.SearchDate = DateTime.Now;
 
-            db.Banks.Create(bank);
-            db.Save();
+            uow.Banks.Create(bank);
+            uow.Save();
         }
 
         public BankDTO GetBank(int? bankId)
@@ -33,7 +35,7 @@ namespace BankAdviser.BLL.Services
             if (bankId == null)
                 throw new ValidationException("Bank ID is not set", "");
 
-            Bank bank = db.Banks.Get(bankId.Value);
+            Bank bank = uow.Banks.Get(bankId.Value);
 
             if (bank == null)
                 throw new ValidationException("Bank is not found", "");
@@ -42,11 +44,21 @@ namespace BankAdviser.BLL.Services
             BankDTO bankDTO = mapper.Map<Bank, BankDTO>(bank);
 
             return bankDTO;
-        }        
+        }
+
+        public IEnumerable<BankDTO> GetAll()
+        {
+            var banks = uow.Banks.GetAll();
+            
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Bank, BankDTO>()).CreateMapper();
+            var banksDTO = mapper.Map<IEnumerable<Bank>, IEnumerable<BankDTO>>(banks);
+
+            return banksDTO;
+        }
 
         public void Dispose()
         {
-            db.Dispose();
+            uow.Dispose();
         }       
     }
 }
