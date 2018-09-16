@@ -23,25 +23,7 @@ namespace BankAdviser.Bot.ViewModels
 
             gifVisibility = Visibility.Hidden;
 
-            logCollection = new ObservableCollection<LogEntry>();           
-            logCollection.Add(new LogEntry
-            {
-                Time = DateTime.Now,
-                Bank = "PUMB",
-                Deposit = "Svobodniy",
-                Currency = Currency.UAH,
-                Term = 6,
-                Status = "✓"
-            });
-            logCollection.Add(new LogEntry
-            {
-                Time = DateTime.Now,
-                Bank = "Privat",
-                Deposit = "Privat-Vklad",
-                Currency = Currency.USD,
-                Term = 12,
-                Status = "✓"
-            });
+            logCollection = new ObservableCollection<LogEntry>();            
         }
 
         private Window mainWindow;
@@ -193,6 +175,7 @@ namespace BankAdviser.Bot.ViewModels
                         Deposit = deposit.Name,
                         Currency = deposit.Currency,
                         Term = deposit.GetTerm(),
+                        IntPeriodicity = deposit.InterestsPeriodicity,
                         Status = "✓"
                     });
 
@@ -224,6 +207,8 @@ namespace BankAdviser.Bot.ViewModels
         {            
             mainWindow.Dispatcher.Invoke(() =>
             {
+                BanksProcessed++;
+
                 logCollection.Add(new LogEntry
                 {
                     Time = DateTime.Now,
@@ -231,6 +216,10 @@ namespace BankAdviser.Bot.ViewModels
                 });
 
                 OnLogUpdated?.Invoke();
+
+                IsStopBtnEnabled = false;
+                IsRunBtnEnabled = true;
+                GifVisibility = Visibility.Hidden;
             });
         }
 
@@ -252,7 +241,8 @@ namespace BankAdviser.Bot.ViewModels
         public string Bank { get; set; }
         public string Deposit { get; set; }
         public string Currency {get; set; }
-        public double Term { get; set; }
+        public double? Term { get; set; }
+        public string IntPeriodicity { get; set; }
         public string Status { get; set; }
     }
 }

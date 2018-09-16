@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 using static BankAdviser.BLL.Services.BotManager;
 
 namespace BankAdviser.BLL.Interfaces

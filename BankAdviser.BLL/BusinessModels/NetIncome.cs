@@ -21,15 +21,15 @@ namespace BankAdviser.BLL.BusinessModels
 
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Monthly)
             {
-                return sum * (rate / 12 * term) * (1 - revenueTax - militaryTax);
+                return sum * (rate / 12 / 100 * term) * (1 - revenueTax - militaryTax);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Quarterly)
             {
-                return (sum * Math.Pow((1 + rate / 4), term) - sum) * (1 - revenueTax - militaryTax);
+                return (sum * Math.Pow((1 + rate / 4 / 100), term) - sum) * (1 - revenueTax - militaryTax);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.OnCompletion)
             {
-                return (sum * Math.Pow((1 + rate / 12), term) - sum) * (1 - revenueTax - militaryTax);
+                return (sum * Math.Pow((1 + rate / 12 / 100), term) - sum) * (1 - revenueTax - militaryTax);
             }
 
             return netIncome;
@@ -47,15 +47,15 @@ namespace BankAdviser.BLL.BusinessModels
 
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Monthly)
             {
-                return sum * (rate / 12 * term) * (1 - revenueTax - militaryTax);
+                return sum * (rate / 12 / 100 * term) * (1 - revenueTax - militaryTax);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Quarterly)
             {
-                return (sum * Math.Pow((1 + rate / 4), term) - sum) * (1 - revenueTax - militaryTax);
+                return (sum * Math.Pow((1 + rate / 4 / 100), term) - sum) * (1 - revenueTax - militaryTax);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.OnCompletion)
             {
-                return (sum * Math.Pow((1 + rate / 12), term) - sum) * (1 - revenueTax - militaryTax);
+                return (sum * Math.Pow((1 + rate / 12 / 100), term) - sum) * (1 - revenueTax - militaryTax);
             }
 
             return netIncome;

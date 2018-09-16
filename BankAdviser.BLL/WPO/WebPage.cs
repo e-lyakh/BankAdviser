@@ -131,14 +131,21 @@ namespace BankAdviser.BLL.WPO
                 return null;
             }
         }
-        protected IWebElement FindUntilNotNull(By by)
+        protected IWebElement WaitUntilElementDisplayed(By by)
+        {
+            IWebElement element = null;
+            while (element == null || !element.Displayed)
+                driver.FindElement(by);
+            return element;
+        }
+        protected IWebElement WaitUntilElementNotNull(By by)
         {
             IWebElement element = null;
             while (element == null)
                 driver.FindElement(by);
             return element;
         }
-        protected IWebElement FindElementForSec(By by, int seconds)
+        protected IWebElement WaitElementForSec(By by, int seconds = 15)
         {
             IWebElement webElement = null;
             int secCounter = 0;
@@ -152,7 +159,7 @@ namespace BankAdviser.BLL.WPO
             }
             return webElement;
         }
-        protected Task<IWebElement> FindElementForSecAsync(By by, int seconds)
+        protected Task<IWebElement> WaitElementForSecAsync(By by, int seconds)
         {
             return Task.Run(() =>
             {
@@ -213,13 +220,9 @@ namespace BankAdviser.BLL.WPO
             return isTabFound;
         }
 
-        protected void QuitDriver()
+        protected void Wait(int sec = 1)
         {
-            if (driver != null)
-            {
-                driver.Quit();
-                driver = null;
-            }
+            Task.Delay(sec * 1000).Wait();
         }
 
         public void GoToPage(WebPage page)
@@ -235,6 +238,15 @@ namespace BankAdviser.BLL.WPO
         {
             if (driver.CurrentWindowHandle != null)
                 driver.Navigate().Refresh();
+        }
+
+        public void QuitDriver()
+        {
+            if (driver != null)
+            {
+                driver.Quit();
+                driver = null;
+            }
         }
     }
 }

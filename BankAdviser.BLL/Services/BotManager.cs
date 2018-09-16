@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace BankAdviser.BLL.Services
 {
@@ -28,7 +29,7 @@ namespace BankAdviser.BLL.Services
         private IWebDriver chromeDriver;
         private IWebDriver ffDriver;
 
-        private Aval privatBank;
+        private Aval aval;
         private Pumb pumb;
 
         public delegate void DepositStatusHandler(string bank, DepositDTO deposit);
@@ -64,18 +65,45 @@ namespace BankAdviser.BLL.Services
         public void Run()
         {
             IsRunning = true;
-            
+
             chromeDriver = GetChromeDriver();
 
-            //privatBank = new PrivatBank(chromeDriver, bankManager, depositManager, DepositCollected);
             pumb = new Pumb(chromeDriver, bankManager, depositManager, DepositCollected);
+            aval = new Aval(chromeDriver, bankManager, depositManager, DepositCollected);
 
-            //privatBank.Successor = pumb;
-            pumb.Successor = null;
+            pumb.Successor = aval;
+            aval.Successor = null;
 
             pumb.CollectData();
 
             OnAllWorkDone?.Invoke();
+
+            aval.QuitDriver();
+        }
+
+        public Task WaitForStopAsync()
+        {
+            return Task.Run(() =>
+            {
+                while (true)
+                {
+                    if(CancToken.IsCancellationRequested)
+                    {
+                        if (pumb.IsDriverRunning)
+                        {
+                            DepositCollected?.Invoke(pumb.BankName, null);
+                            pumb.QuitDriver();
+                        }                            
+                        else if (aval.IsDriverRunning)
+                        {
+                            DepositCollected?.Invoke(pumb.BankName, null);
+                            aval.QuitDriver();
+                        }                            
+
+                        uow.Dispose();
+                    }
+                }
+            });
         }
     }
 }

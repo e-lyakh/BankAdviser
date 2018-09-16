@@ -2,6 +2,7 @@
 using BankAdviser.BLL.Interfaces;
 using OpenQA.Selenium;
 using System.Linq;
+using System.Threading.Tasks;
 using static BankAdviser.BLL.Services.BotManager;
 
 namespace BankAdviser.BLL.WPO
@@ -20,12 +21,25 @@ namespace BankAdviser.BLL.WPO
         protected IDepositManager depositManager;
 
         protected string bankName;
+        protected int bankId;
+
+        public string BankName
+        {
+            get
+            {
+                return bankName;
+            }
+            set
+            {
+                bankName = value;
+            }
+        }
 
         public event DepositStatusHandler DepositCollected;
 
         public BankPage Successor { get; set; }
 
-        protected int GetBankId()
+        protected int GetBankId(string bankName)
         {
             int id = bankManager.GetAll()
                     .Where(b => b.Name == bankName)
@@ -35,11 +49,11 @@ namespace BankAdviser.BLL.WPO
             return id;
         }
 
-        protected void NotifyOnDepositCollected(string bank, DepositDTO deposit)
+        protected void WriteLogOnDepositCollected(string bank, DepositDTO deposit)
         {
             DepositCollected?.Invoke(bank, deposit);
         }
 
-        public abstract void CollectData();        
+        public abstract void CollectData();
     }
 }

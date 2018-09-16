@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title=" Deposits Data Parser"
         Height="700"
-        Width="800"
+        Width="900"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         Closed="Window_Closed"
@@ -143,8 +143,9 @@
                 <DataGridTextColumn Header="Time" Binding="{Binding Path=Time, StringFormat=\{0:HH:mm\}}" Width="75" SortDirection="Ascending"/>
                 <DataGridTextColumn Header="Bank" Binding="{Binding Path=Bank}" Width="175"/>
                 <DataGridTextColumn Header="Deposit" Binding="{Binding Path=Deposit}" Width="210" />
-                <DataGridTextColumn Header="Currency" Binding="{Binding Path=Currency}" Width="75" />
-                <DataGridTextColumn Header="Term" Binding="{Binding Path=Term}" Width="75" />
+                <DataGridTextColumn Header="Currency" Binding="{Binding Path=Currency}" Width="80" />
+                <DataGridTextColumn Header="Term" Binding="{Binding Path=Term}" Width="80" />
+                <DataGridTextColumn Header="% Period" Binding="{Binding Path=IntPeriodicity}" Width="90" />
                 <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}" Width="75" />
             </DataGrid.Columns>
 

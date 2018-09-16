@@ -43,7 +43,7 @@
 
             foreach (var item in Model)
             {
-                rate = (item.DepositRate * 100).ToString() + "%";
+                rate = item.DepositRate.ToString() + "%";
                 <tr style="height: 100px;">
                     <th scope="row" class="align-middle text-center">
                         @count.ToString()
