@@ -1,9 +1,8 @@
 ﻿using BankAdviser.BLL.DTO;
+using BankAdviser.BLL.Infrastructure;
 using BankAdviser.BLL.Interfaces;
 using BankAdviser.BLL.WPO;
 using BankAdviser.DAL.Interfaces;
-using BankAdviser.DAL.Repositories;
-using BankAdviser.DAL.Services;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -17,7 +16,6 @@ namespace BankAdviser.BLL.Services
         public BotManager(IUnitOfWork uow, IBankManager bankManager, IDepositManager depositManager)
         {
             this.uow = uow;
-            //this.uow = new UnitOfWork("DefaultConnection");
             this.bankManager = bankManager;
             this.depositManager = depositManager;
         }
@@ -29,8 +27,13 @@ namespace BankAdviser.BLL.Services
         private IWebDriver chromeDriver;
         private IWebDriver ffDriver;
 
-        private Aval aval;
+        private Oshad oshad;        
         private Pumb pumb;
+        private Aval aval;
+        private Ukrsib ukrsib;
+        private CreditAgricole creditAgricole;        
+
+        public static bool IsMinimized { get; set; }
 
         public delegate void DepositStatusHandler(string bank, DepositDTO deposit);
         public event DepositStatusHandler DepositCollected;
@@ -46,7 +49,7 @@ namespace BankAdviser.BLL.Services
             if (chromeDriver == null)                          
                 chromeDriver = new ChromeDriver();
 
-            if (Settings.IsFfMinimized)
+            if (BotSettings.IsBrowserMinimized)
                 chromeDriver.Manage().Window.Minimize();
 
             return chromeDriver;
@@ -56,7 +59,7 @@ namespace BankAdviser.BLL.Services
             if (ffDriver == null)
                 ffDriver = new FirefoxDriver();
 
-            if (Settings.IsFfMinimized)
+            if (BotSettings.IsBrowserMinimized)
                 ffDriver.Manage().Window.Minimize();
 
             return ffDriver;
@@ -68,17 +71,25 @@ namespace BankAdviser.BLL.Services
 
             chromeDriver = GetChromeDriver();
 
+            WebDriverManager.MinimizeChromeDriverWndAsync();
+
+            oshad = new Oshad(chromeDriver, bankManager, depositManager, DepositCollected);
             pumb = new Pumb(chromeDriver, bankManager, depositManager, DepositCollected);
             aval = new Aval(chromeDriver, bankManager, depositManager, DepositCollected);
+            ukrsib = new Ukrsib(chromeDriver, bankManager, depositManager, DepositCollected);
+            creditAgricole = new CreditAgricole(chromeDriver, bankManager, depositManager, DepositCollected);
 
+            oshad.Successor = pumb;
             pumb.Successor = aval;
-            aval.Successor = null;
+            aval.Successor = ukrsib;
+            ukrsib.Successor = creditAgricole;
+            creditAgricole.Successor = null;
 
-            pumb.CollectData();
+            oshad.CollectData();
 
             OnAllWorkDone?.Invoke();
 
-            aval.QuitDriver();
+            oshad.QuitDriver();
         }
 
         public Task WaitForStopAsync()

@@ -19,14 +19,17 @@ namespace BankAdviser.DAL.Entities
         public double Rate2Months { get; set; }
         public double Rate3Months { get; set; }
         public double Rate4Months { get; set; }
+        public double Rate5Months { get; set; }
         public double Rate6Months { get; set; }
         public double Rate7Months { get; set; }
         public double Rate9Months { get; set; }
         public double Rate12Months { get; set; }
         public double Rate13Months { get; set; }
+        public double Rate15Months { get; set; }
         public double Rate18Months { get; set; }
         public double Rate24Months { get; set; }
         public double Rate36Months { get; set; }
+        public double RateTermless { get; set; }
 
         public bool IsAddable { get; set; }
         public bool IsWithdrawable { get; set; }
@@ -60,18 +63,24 @@ namespace BankAdviser.DAL.Entities
                 return 12;
             if (Rate13Months > 0)
                 return 13;
+            if (Rate15Months > 0)
+                return 15;
             if (Rate18Months > 0)
                 return 18;
             if (Rate24Months > 0)
                 return 24;
             if (Rate36Months > 0)
                 return 36;
+            if (RateTermless > 0)
+                return double.MaxValue;
 
             return 0;
         }
 
         public bool HasTerm(int months, int weeks = 0)
         {
+            if (RateTermless > 0)
+                return true;
             if (weeks == 1 && Rate1Weeks > 0)
                 return true;
             if (weeks == 2 && Rate2Weeks > 0)
@@ -93,6 +102,8 @@ namespace BankAdviser.DAL.Entities
             if (months == 12 && Rate12Months > 0)
                 return true;
             if (months == 13 && Rate13Months > 0)
+                return true;
+            if (months == 15 && Rate15Months > 0)
                 return true;
             if (months == 18 && Rate18Months > 0)
                 return true;
@@ -128,6 +139,8 @@ namespace BankAdviser.DAL.Entities
                 return Rate12Months;
             if (months == 13)
                 return Rate13Months;
+            if (months == 15)
+                return Rate15Months;
             if (months == 18)
                 return Rate18Months;
             if (months == 24)

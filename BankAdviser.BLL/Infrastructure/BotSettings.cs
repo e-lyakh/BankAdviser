@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Configuration;
 
-namespace BankAdviser.DAL.Services
+namespace BankAdviser.BLL.Infrastructure
 {
-    public static class Settings
-    {        
-        private static readonly string hostName = Read("RDS_HOSTNAME");
-        private static readonly string dbName = Read("RDS_DBNAME");
-        private static readonly string userName = Read("RDS_USERNAME");
-        private static readonly string password = Read("RDS_PASSWORD");
-        private static readonly string port = Read("RDS_PORT");
+    public static class BotSettings
+    {
+        private const int waitPageToLoad = 1;
+        private const int maxWaitElementToLoad = 15;
 
-        public static string ConnectionString
+        public static int WaitPageToLoad
+        {
+            get { return waitPageToLoad; }
+        }
+        public static int MaxWaitElementToLoad
+        {
+            get { return maxWaitElementToLoad; }
+        }
+
+        public static bool IsBrowserMinimized
         {
             get
             {
-                return "Data Source=" + hostName + ";Initial Catalog=" + dbName + ";User ID=" + userName + ";Password=" + password + ";MultipleActiveResultSets=True;";
+                return Convert.ToBoolean(Read("IsBrowserMinimized"));
+            }
+            set
+            {
+                AddUpdate("IsBrowserMinimized", value.ToString());
             }
         }
-
-        public static double WaitElement { get; } = Convert.ToDouble(Read("WaitElementToLoad"));
-        public static bool IsFfMinimized { get; } = Convert.ToBoolean(Read("IsFfMinimized"));
 
         private static string Read(string key)
         {
@@ -36,12 +43,10 @@ namespace BankAdviser.DAL.Services
             }
             catch (ConfigurationErrorsException)
             {
-                // TODO: exception logging
                 return null;
             }
             catch (Exception ex)
             {
-                // TODO: exception logging
                 return null;
             }
         }
@@ -65,7 +70,7 @@ namespace BankAdviser.DAL.Services
             }
             catch (ConfigurationErrorsException)
             {
-                // TODO: exception logging
+
             }
         }
     }

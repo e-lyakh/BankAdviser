@@ -16,14 +16,17 @@
         public double Rate2Months { get; set; }
         public double Rate3Months { get; set; }
         public double Rate4Months { get; set; }
+        public double Rate5Months { get; set; }
         public double Rate6Months { get; set; }
         public double Rate7Months { get; set; }
         public double Rate9Months { get; set; }
         public double Rate12Months { get; set; }
         public double Rate13Months { get; set; }
+        public double Rate15Months { get; set; }
         public double Rate18Months { get; set; }
         public double Rate24Months { get; set; }
         public double Rate36Months { get; set; }
+        public double RateTermless { get; set; }
 
         public bool IsAddable { get; set; }
         public bool IsWithdrawable { get; set; }
@@ -35,42 +38,48 @@
 
         public double NetIncome { get; set; }
 
-        public double GetTerm()
+        public double GetMaxTerm()
         {
-            if (Rate1Weeks > 0)
-                return 0.25;
-            if (Rate2Weeks > 0)
-                return 0.5;
-            if (Rate1Months > 0)
-                return 1;
-            if (Rate2Months > 0)
-                return 2;
-            if (Rate3Months > 0)
-                return 3;
-            if (Rate4Months > 0)
-                return 4;
-            if (Rate6Months > 0)
-                return 6;
-            if (Rate7Months > 0)
-                return 7;
-            if (Rate9Months > 0)
-                return 9;
-            if (Rate12Months > 0)
-                return 12;
-            if (Rate13Months > 0)
-                return 13;
-            if (Rate18Months > 0)
-                return 18;
-            if (Rate24Months > 0)
-                return 24;
+            if (RateTermless > 0)
+                return double.MaxValue;
             if (Rate36Months > 0)
                 return 36;
+            if (Rate24Months > 0)
+                return 24;
+            if (Rate18Months > 0)
+                return 18;
+            if (Rate15Months > 0)
+                return 15;
+            if (Rate13Months > 0)
+                return 13;
+            if (Rate12Months > 0)
+                return 12;
+            if (Rate9Months > 0)
+                return 9;
+            if (Rate7Months > 0)
+                return 7;
+            if (Rate6Months > 0)
+                return 6;
+            if (Rate4Months > 0)
+                return 4;
+            if (Rate3Months > 0)
+                return 3;
+            if (Rate2Months > 0)
+                return 2;
+            if (Rate1Months > 0)
+                return 1;
+            if (Rate2Weeks > 0)
+                return 0.5;
+            if (Rate1Weeks > 0)
+                return 0.25;
 
             return 0;
         }
 
         public bool HasTerm(int months, int weeks = 0)
         {
+            if (RateTermless > 0)
+                return true;
             if (weeks == 1 && Rate1Weeks > 0)
                 return true;
             if (weeks == 2 && Rate2Weeks > 0)
@@ -92,6 +101,8 @@
             if (months == 12 && Rate12Months > 0)
                 return true;
             if (months == 13 && Rate13Months > 0)
+                return true;
+            if (months == 15 && Rate15Months > 0)
                 return true;
             if (months == 18 && Rate18Months > 0)
                 return true;
@@ -127,12 +138,16 @@
                 return Rate12Months;
             if (months == 13)
                 return Rate13Months;
+            if (months == 15)
+                return Rate15Months;
             if (months == 18)
                 return Rate18Months;
             if (months == 24)
                 return Rate24Months;
             if (months == 36)
                 return Rate36Months;
+            if (months == double.MaxValue)
+                return RateTermless;
 
             return 0;
         }

@@ -6,7 +6,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Title=" Deposits Data Parser"
-        Height="700"
+        Height="800"
         Width="900"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
@@ -22,6 +22,9 @@
             <Setter Property="Control.FontSize" Value="14"/>
             <Setter Property="Control.VerticalAlignment" Value="Center"/>
             <Setter Property="Control.Margin" Value="0 0 0 5"/>
+        </Style>
+        <Style x:Key="CheckBox">
+            <Setter Property="Control.VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="TextBox">
             <Setter Property="Control.Width" Value="30"/>
@@ -69,7 +72,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="20"/>
             <RowDefinition/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="75"/>
@@ -83,7 +87,7 @@
             Content="RUN"
             IsDefault="True"
             HorizontalAlignment="Right"
-            Style="{StaticResource Button}"            
+            Style="{StaticResource Button}"
             IsEnabled="{Binding IsRunBtnEnabled}"
             Command="{Binding RunCommand}"
             />
@@ -111,10 +115,35 @@
             Visibility="{Binding GifVisibility}"
             />
 
+        <GroupBox
+            Grid.Column="1"
+            Grid.Row="2"
+            Grid.ColumnSpan="3"
+            FontSize="12">
+            <GroupBox.Header>
+                <Label Foreground="Gray" FontSize="12">Settings</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>                    
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <CheckBox
+                    Name="cbIsMinimized"
+                    Grid.Column="1"
+                    Content=" Minimized"
+                    IsChecked="{Binding IsBrowserMinimized}"
+                    Style="{StaticResource CheckBox}"/>
+
+            </Grid>
+        </GroupBox>
+
         <DataGrid
             Name="dgLog"
             Grid.Column="1"
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.ColumnSpan="3"
             AutoGenerateColumns="False"
             ColumnHeaderHeight="25"
@@ -144,7 +173,7 @@
                 <DataGridTextColumn Header="Bank" Binding="{Binding Path=Bank}" Width="175"/>
                 <DataGridTextColumn Header="Deposit" Binding="{Binding Path=Deposit}" Width="210" />
                 <DataGridTextColumn Header="Currency" Binding="{Binding Path=Currency}" Width="80" />
-                <DataGridTextColumn Header="Term" Binding="{Binding Path=Term}" Width="80" />
+                <DataGridTextColumn Header="Max Term" Binding="{Binding Path=MaxTerm}" Width="80" />
                 <DataGridTextColumn Header="% Period" Binding="{Binding Path=IntPeriodicity}" Width="90" />
                 <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}" Width="75" />
             </DataGrid.Columns>
@@ -153,7 +182,7 @@
 
         <GroupBox
             Grid.Column="1"
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.ColumnSpan="3"
             FontSize="12">
             <GroupBox.Header>

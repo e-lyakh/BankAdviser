@@ -1,6 +1,6 @@
 ﻿using BankAdviser.BLL.DTO;
+using BankAdviser.BLL.Infrastructure;
 using BankAdviser.BLL.Interfaces;
-using BankAdviser.DAL.Entities;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -23,6 +23,8 @@ namespace BankAdviser.Bot.ViewModels
 
             gifVisibility = Visibility.Hidden;
 
+            isBrowserMinimized = BotSettings.IsBrowserMinimized;
+
             logCollection = new ObservableCollection<LogEntry>();            
         }
 
@@ -40,6 +42,8 @@ namespace BankAdviser.Bot.ViewModels
         private bool isStopBtnEnabled;
 
         private Visibility gifVisibility;
+
+        private bool isBrowserMinimized;
 
         private ObservableCollection<LogEntry> logCollection;
 
@@ -87,6 +91,19 @@ namespace BankAdviser.Bot.ViewModels
             {
                 gifVisibility = value;
                 OnPropertyChanged("GifVisibility");
+            }
+        }
+        public bool IsBrowserMinimized
+        {
+            get
+            {
+                return isBrowserMinimized;
+            }
+            set
+            {
+                isBrowserMinimized = value;
+                OnPropertyChanged("IsBrowserMinimized");
+                BotSettings.IsBrowserMinimized = value;
             }
         }
         public ObservableCollection<LogEntry> LogCollection
@@ -168,13 +185,17 @@ namespace BankAdviser.Bot.ViewModels
             {
                 if (deposit != null)
                 {
+                    double? maxTerm = null;
+                    if (deposit.GetMaxTerm() < 37)
+                        maxTerm = deposit.GetMaxTerm();
+                    
                     logCollection.Add(new LogEntry
                     {
                         Time = DateTime.Now,
                         Bank = bank,
                         Deposit = deposit.Name,
                         Currency = deposit.Currency,
-                        Term = deposit.GetTerm(),
+                        MaxTerm = maxTerm,
                         IntPeriodicity = deposit.InterestsPeriodicity,
                         Status = "✓"
                     });
@@ -241,7 +262,7 @@ namespace BankAdviser.Bot.ViewModels
         public string Bank { get; set; }
         public string Deposit { get; set; }
         public string Currency {get; set; }
-        public double? Term { get; set; }
+        public double? MaxTerm { get; set; }
         public string IntPeriodicity { get; set; }
         public string Status { get; set; }
     }

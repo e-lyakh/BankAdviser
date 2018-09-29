@@ -17,7 +17,7 @@ namespace BankAdviser.DAL.EF
             Database.SetInitializer<RDSContext>(new StoreDbInitializer());
         }
 
-        public RDSContext() : base(Settings.ConnectionString)
+        public RDSContext() : base(DbSettings.DbConnection, true)
         {
         }
 
@@ -81,13 +81,22 @@ namespace BankAdviser.DAL.EF
             {
                 Id = 6,
                 SearchDate = DateTime.Now,
-                Name = "Credit Agricole",
+                Name = "Креди Агриколь",
                 Type = BankType.Foreign,
                 AssetsRank = 13,
                 Rating = 3
             });
+            db.Banks.Add(new Bank
+            {
+                Id = 7,
+                SearchDate = DateTime.Now,
+                Name = "Укрсиббанк",
+                Type = BankType.Foreign,
+                AssetsRank = 10,
+                Rating = 2
+            });
             #endregion
-            
+
             #region Deposits
 
             // PrivatBank
@@ -95,7 +104,7 @@ namespace BankAdviser.DAL.EF
             {
                 Id = 1,
                 SearchDate = DateTime.Now,
-                BankId = 2,
+                BankId = 1,
                 Name = "Стандарт",
                 Currency = Currency.UAH,
                 MinSum = 0,

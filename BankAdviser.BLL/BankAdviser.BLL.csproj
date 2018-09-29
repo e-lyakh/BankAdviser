@@ -68,6 +68,7 @@
     <Compile Include="DTO\InquiryDTO.cs" />
     <Compile Include="DTO\ReplyEntryDTO.cs" />
     <Compile Include="DTO\DepositDTO.cs" />
+    <Compile Include="Infrastructure\BotSettings.cs" />
     <Compile Include="Infrastructure\Old\BankManagerNModule.cs" />
     <Compile Include="Infrastructure\Old\DepositManagerNModule.cs" />
     <Compile Include="Infrastructure\Old\BotManagerNModule.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Infrastructure\Old\ReplyManagerNModule.cs" />
     <Compile Include="Infrastructure\Old\UowNModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Infrastructure\WebDriverManager.cs" />
     <Compile Include="Interfaces\IBankManager.cs" />
     <Compile Include="Interfaces\IDepositManager.cs" />
     <Compile Include="Interfaces\IInquiryManager.cs" />
@@ -88,6 +90,9 @@
     <Compile Include="Services\DepositManager.cs" />
     <Compile Include="Services\InquiryManager.cs" />
     <Compile Include="Services\ReplyEntryManager.cs" />
+    <Compile Include="WPO\CreditAgricole.cs" />
+    <Compile Include="WPO\Oshad.cs" />
+    <Compile Include="WPO\Ukrsib.cs" />
     <Compile Include="WPO\Pumb.cs" />
     <Compile Include="WPO\Aval.cs" />
     <Compile Include="WPO\BankPage.cs" />

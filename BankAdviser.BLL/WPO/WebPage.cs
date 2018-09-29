@@ -1,4 +1,4 @@
-﻿using BankAdviser.DAL.Services;
+﻿using BankAdviser.BLL.Infrastructure;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -13,7 +13,7 @@ namespace BankAdviser.BLL.WPO
         public WebPage(IWebDriver driver)
         {
             this.driver = driver;            
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(Settings.WaitElement));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(BotSettings.MaxWaitElementToLoad));
             action = new Actions(driver);
         }
 
@@ -220,7 +220,11 @@ namespace BankAdviser.BLL.WPO
             return isTabFound;
         }
 
-        protected void Wait(int sec = 1)
+        protected void WaitToLoad()
+        {
+            Task.Delay(BotSettings.WaitPageToLoad * 1000).Wait();
+        }
+        protected void WaitToLoad(int sec)
         {
             Task.Delay(sec * 1000).Wait();
         }

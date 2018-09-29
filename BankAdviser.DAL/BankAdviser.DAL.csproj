@@ -68,7 +68,7 @@
     <Compile Include="Repositories\DepositsRepository.cs" />
     <Compile Include="Repositories\InquiriesRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
-    <Compile Include="Services\Settings.cs" />
+    <Compile Include="Services\DbSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

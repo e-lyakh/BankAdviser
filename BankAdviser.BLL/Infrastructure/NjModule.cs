@@ -19,8 +19,7 @@ namespace BankAdviser.BLL.Infrastructure
 
         public override void Load()
         {
-            //Bind<IUnitOfWork>().To<UnitOfWork>();
-            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IUnitOfWork>().To<UnitOfWork>();
 
             Bind<IBankManager>().To<BankManager>();            
             Bind<IDepositManager>().To<DepositManager>();

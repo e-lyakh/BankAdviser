@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankAdviser.BLL.Services
 {
@@ -24,14 +20,19 @@ namespace BankAdviser.BLL.Services
         {
             double result;
 
-            text = text.Substring(0, text.Length - 2);
+            if (text != null && text.Length > 0)
+            {
+                text = text.Substring(0, text.Length - 1);
 
-            if (text.Contains("."))
-                result = Convert.ToDouble(text.Replace('.', ','));
+                if (text.Contains("."))
+                    result = Convert.ToDouble(text.Replace('.', ','));
+                else
+                    result = Convert.ToDouble(text);
+
+                return result;
+            }
             else
-                result = Convert.ToDouble(text);
-
-            return result;
+                return -1;            
         }
     }
 }
