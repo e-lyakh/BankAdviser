@@ -83,7 +83,7 @@
                         <td></td>
                     }
                     <td class="align-middle text-center">
-                        @item.NetIncome.ToString("0.#")
+                        @item.NetIncome.ToString("N0")
                     </td>
                     <td class="align-middle">
                         <button class="btn btn-outline-primary btn-sm" onclick="window.open('@Html.DisplayFor(modelItem => item.DepositUrl)','_blank')" type="button">

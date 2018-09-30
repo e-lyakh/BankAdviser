@@ -13,7 +13,9 @@ namespace BankAdviser.BLL.BusinessModels
 
         public static double Calculate(InquiryDTO inquiry, DepositDTO deposit)
         {
-            double netIncome = 0;
+            double resultSum = 0;
+            double taxSum = 0;
+            double netSum = 0;
 
             double sum = inquiry.Sum;
             double rate = deposit.GetRateByTerm(inquiry.Term);
@@ -21,23 +23,27 @@ namespace BankAdviser.BLL.BusinessModels
 
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Monthly)
             {
-                return sum * (rate / 12 / 100 * term) * (1 - revenueTax - militaryTax);
+                resultSum = sum * Math.Pow((1 + rate / 100 / 12), term);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Quarterly)
             {
-                return (sum * Math.Pow((1 + rate / 4 / 100), term) - sum) * (1 - revenueTax - militaryTax);
+                resultSum = sum * Math.Pow((1 + rate / 100 / 4), term / 4);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.OnCompletion)
             {
-                return (sum * Math.Pow((1 + rate / 12 / 100), term) - sum) * (1 - revenueTax - militaryTax);
+                resultSum = sum * (1 + rate / 100 * term / 12);
             }
 
-            return netIncome;
+            taxSum = (resultSum - sum) * (revenueTax + militaryTax);
+            netSum = resultSum - taxSum;
+            return netSum;
         }
 
         public static double Calculate(Inquiry inquiry, Deposit deposit)
         {
-            double netIncome = 0;
+            double resultSum = 0;
+            double taxSum = 0;
+            double netSum = 0;
 
             double sum = inquiry.Sum;
             double rate = deposit.GetRateByTerm(inquiry.Term);
@@ -45,18 +51,20 @@ namespace BankAdviser.BLL.BusinessModels
 
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Monthly)
             {
-                return sum * (rate / 12 / 100 * term) * (1 - revenueTax - militaryTax);
+                resultSum = sum * Math.Pow((1 + rate / 100 / 12), term);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.Quarterly)
             {
-                return (sum * Math.Pow((1 + rate / 4 / 100), term) - sum) * (1 - revenueTax - militaryTax);
+                resultSum = sum * Math.Pow((1 + rate / 100 / 4), term / 4);
             }
             if (inquiry.InterestsPeriodicity == InterestsPeriodicity.OnCompletion)
             {
-                return (sum * Math.Pow((1 + rate / 12 / 100), term) - sum) * (1 - revenueTax - militaryTax);
+                resultSum = sum * (1 + rate / 100 * term / 12);
             }
 
-            return netIncome;
+            taxSum = (resultSum - sum) * (revenueTax + militaryTax);
+            netSum = resultSum - taxSum;
+            return netSum;
         }
     }
 }
