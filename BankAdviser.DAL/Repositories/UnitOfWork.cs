@@ -13,6 +13,7 @@ namespace BankAdviser.DAL.Repositories
         private BanksRepository banksRepository;        
         private DepositsRepository depositsRepository;
         private ReplyEntriesRepository replyEntriesRepository;
+        private RatingsRepository ratingsRepository;
 
         public UnitOfWork()
         {
@@ -61,6 +62,16 @@ namespace BankAdviser.DAL.Repositories
                 if (replyEntriesRepository == null)
                     replyEntriesRepository = new ReplyEntriesRepository(db);
                 return replyEntriesRepository;
+            }
+        }
+
+        public IRepository<Rating> Ratings
+        {
+            get
+            {
+                if (ratingsRepository == null)
+                    ratingsRepository = new RatingsRepository(db);
+                return ratingsRepository;
             }
         }
 

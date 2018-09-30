@@ -178,6 +178,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\InquiryVM.cs" />
+    <Compile Include="Models\CalculatorVM.cs" />
+    <Compile Include="Models\RatingVM.cs" />
     <Compile Include="Models\ReplyEntryVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -259,10 +261,14 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Home\ShowReply.cshtml" />
+    <Content Include="Views\Home\ShowDeposits.cshtml" />
+    <Content Include="Views\Home\AskDeposits.cshtml" />
+    <Content Include="Views\Home\ShowRatings.cshtml" />
+    <Content Include="Views\Home\Calculator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

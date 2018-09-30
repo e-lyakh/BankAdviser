@@ -1,0 +1,184 @@
+﻿@model BankAdviser.WEB.Models.CalculatorVM
+
+@{
+    ViewBag.Title = "Депозитный калькулятор";
+
+    string sumInputError = String.Empty;
+    if (Model.ValidationErrors != null && Model.ValidationErrors.ContainsKey("Sum"))
+    {
+        sumInputError = Model.ValidationErrors["Sum"];
+    }
+
+    string termInputError = String.Empty;
+    if (Model.ValidationErrors != null && Model.ValidationErrors.ContainsKey("Term"))
+    {
+        termInputError = Model.ValidationErrors["Term"];
+    }
+
+    string rateInputError = String.Empty;
+    if (Model.ValidationErrors != null && Model.ValidationErrors.ContainsKey("Rate"))
+    {
+        rateInputError = Model.ValidationErrors["Rate"];
+    }
+}
+
+<h3 class="header-inquiry">Депозитный калькулятор</h3>
+
+<form name="calculatorFrom" class="pb-md-4" action="@Url.Action("Calculator", "Home")" method="post" onsubmit="return validateForm()">
+
+    <div class="form-group row pb-md-4">
+        <label for="sum" class="col-2 col-form-label">СУММА</label>
+        <div class="col-2">
+            <input type="text" class="form-control text-center" id="sum" name="Sum" value="@Model.Sum">
+        </div>
+        <div id="sumValidationError" class="col-5 pt-2 validation-text">
+            @sumInputError
+        </div>
+    </div>
+
+    <div class="form-group row pb-md-4">
+        <label for="inputTermRange" class="col-2 col-form-label">СРОК</label>
+        <div class="col-3">
+            <input type="range" class="form-control" id="termRange" min="1" max="36" step="1" value="@Model.Term">
+        </div>
+        <div class="col-1">
+            <input type="text" class="form-control text-center" id="termText" name="Term">
+        </div>
+        <label class="col-form-label">мес.</label>
+        <div id="termValidationError" class="col-5 pt-2 validation-text">
+            @termInputError
+        </div>
+    </div>
+
+    <div class="form-group row pb-md-4">
+        <label for="rate" class="col-2 col-form-label">СТАВКА</label>
+        <div class="col-2">
+            <input type="text" class="form-control text-center" id="rate" name="Rate" value="@Model.Rate">
+        </div>
+        <label class="col-form-label">%</label>
+        <div id="rateValidationError" class="col-5 pt-2 validation-text">
+            @rateInputError
+        </div>
+    </div>
+
+    <fieldset class="form-group pb-md-4">
+        <div class="row">
+            <legend class="col-form-label col-2 pt-0">НАЧИСЛЕНИЯ</legend>
+            <div class="col-10">
+                <div class="custom-control custom-radio custom-control-inline col-auto">
+                    <input class="custom-control-input" type="radio" id="radioMonthlyInterests" name="InterestsPeriodicity" value="Monthly" checked>
+                    <label class="custom-control-label" for="radioMonthlyInterests">Ежемесячно</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline col-auto">
+                    <input class="custom-control-input" type="radio" id="radioOnCompletionInterests" name="InterestsPeriodicity" value="OnCompletion">
+                    <label class="custom-control-label" for="radioOnCompletionInterests">В конце срока</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group row pt-md-3">
+        <div class="btn-select col-2">
+            <button type="submit" class="btn btn-success w-100">РАССЧИТАТЬ</button>
+        </div>
+    </div>
+
+    @*Results:*@
+    @{
+        if (Model.ResultSum != 0)
+        {
+            <label style="padding: 20px 0px 10px 0px;">РЕЗУЛЬТАТЫ:</label>
+            <div class="col-6" style="background-color: azure;">
+                <div class="row calc-result result-sum">
+                    <label class="col-5">Сумма с процентами</label>
+                    <label class="col-1">@Model.ResultSum.ToString("N1")</label>
+                </div>
+                <div class="row calc-result tax-sum">
+                    <label class="col-5">Налоги</label>
+                    <label class="col-1">@Model.TaxSum.ToString("N1")</label>
+                </div>
+                <div class="row calc-result net-sum" style="font-weight: 600">
+                    <label class="col-5">Сумма к получению</label>
+                    <label class="col-1">@Model.NetSum.ToString("N1")</label>
+                </div>
+            </div>
+        }
+    }
+
+</form>
+
+
+@section scripts {
+    <script type="text/javascript">
+        var slider = document.getElementById("termRange");
+        var output = document.getElementById("termText");
+        output.value = slider.value;
+        slider.oninput = function () {
+            output.value = this.value;
+        };
+        output.oninput = function () {
+            slider.value = this.value;
+        }
+    </script>
+
+    <script type="text/javascript">
+
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+        function validateForm() {
+
+            var areInputsValid = true;
+
+            var sum = document.forms["selectionFrom"]["Sum"].value;
+            if (sum === "") {
+                document.getElementById("sumValidationError").innerHTML = "Заполните сумму депозита";
+                areInputsValid = false;
+            }
+            else if (!IsNumeric(sum)) {
+                document.getElementById("sumValidationError").innerHTML = "Введите корректную сумму";
+                areInputsValid = false;
+            }
+            else if (sum <= 0) {
+                document.getElementById("sumValidationError").innerHTML = "Сумма не должна быть отрицательной";
+                areInputsValid = false;
+            }
+
+            var term = document.forms["selectionFrom"]["Term"].value;
+            if (term === "") {
+                document.getElementById("termValidationError").innerHTML = "Заполните срок депозита";
+                areInputsValid = false;
+            }
+            else if (!IsNumeric(term)) {
+                document.getElementById("termValidationError").innerHTML = "Введите корректный срок";
+                areInputsValid = false;
+            }
+            else if (term < 0 || term > 36) {
+                document.getElementById("termValidationError").innerHTML = "Срок должен быть от 1 до 36 мес.";
+                areInputsValid = false;
+            }
+
+            var rate = document.forms["selectionFrom"]["Rate"].value;
+            if (rate === "") {
+                document.getElementById("rateValidationError").innerHTML = "Заполните ставку депозита";
+                areInputsValid = false;
+            }
+            else if (!IsNumeric(rate)) {
+                document.getElementById("rateValidationError").innerHTML = "Введите корректную ставку";
+                areInputsValid = false;
+            }
+            else if (rate < 1 || rate > 100) {
+                document.getElementById("rateValidationError").innerHTML = "Ставка должна быть от 1 до 100%";
+                areInputsValid = false;
+            }
+
+            if (areInputsValid)
+                return true;
+            else
+                return false;
+
+        }
+    </script>
+}
+

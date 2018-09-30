@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BankAdviser.BLL.BusinessModels;
 using BankAdviser.BLL.DTO;
 using BankAdviser.BLL.Interfaces;
 using BankAdviser.WEB.Models;
@@ -11,12 +12,15 @@ namespace BankAdviser.WEB.Controllers
     {        
         IInquiryManager inquiryManager;
         IReplyEntryManager replyManager;
+        IRatingManager ratingManager;
+
         InquiryVM inquiryVM;
 
-        public HomeController (IInquiryManager inquiryManager, IReplyEntryManager replyManager)
+        public HomeController (IInquiryManager inquiryManager, IReplyEntryManager replyManager, IRatingManager ratingManager)
         {
             this.inquiryManager = inquiryManager;
             this.replyManager = replyManager;
+            this.ratingManager = ratingManager;
 
             inquiryVM = new InquiryVM();
             inquiryVM.Sum = 1000;
@@ -25,10 +29,15 @@ namespace BankAdviser.WEB.Controllers
 
         public ActionResult Index()
         {            
-            return View(inquiryVM);
-        }       
+            return View();
+        }
 
-        public ActionResult ShowReply(InquiryVM inqVM)
+        public ActionResult AskDeposits()
+        {
+            return View(inquiryVM);
+        }
+
+        public ActionResult ShowDeposits(InquiryVM inqVM)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +80,76 @@ namespace BankAdviser.WEB.Controllers
 
             return View("Index", inqVM);
         }
-     
+
+        public ActionResult ShowRatings()
+        {
+            var ratingsDTO = ratingManager.GetAll();
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<RatingDTO, RatingVM>()).CreateMapper();
+            var ratingsVM = mapper.Map<IEnumerable<RatingDTO>, List<RatingVM>>(ratingsDTO);
+
+            return View(ratingsVM);
+        }
+
+        public ActionResult Calculator(CalculatorVM calcVM)
+        {
+            if (calcVM == null)
+            {
+                calcVM = new CalculatorVM();
+                return View(calcVM);
+            }
+            if (calcVM.Term == 0)
+            {
+                return View(calcVM);
+            }
+            else if (ModelState.IsValid)
+            {
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<CalculatorVM, CalculatorBM>()).CreateMapper();
+                var calcBM = mapper.Map<CalculatorVM, CalculatorBM>(calcVM);
+
+                calcBM.Calculate();
+
+                calcVM.ResultSum = calcBM.ResultSum;
+                calcVM.TaxSum = calcBM.TaxSum;
+                calcVM.NetSum = calcBM.NetSum;
+
+                return View(calcVM);
+            }
+            else
+            {
+                calcVM.ValidationErrors = new Dictionary<string, string>();
+
+                if (calcVM.Sum < 0)
+                {
+                    calcVM.ValidationErrors["Sum"] = "Сумма не должна быть отрицательной";
+                }
+                else if (ModelState["Sum"].Errors.Count > 0)
+                {
+                    calcVM.ValidationErrors["Sum"] = "Введите корректную сумму";
+                }
+
+                if (calcVM.Term < 1 || calcVM.Term > 36)
+                {
+                    calcVM.ValidationErrors["Term"] = "Срок должен быть от 1 до 36 мес.";
+                }
+                else if (ModelState["Term"].Errors.Count > 0)
+                {
+                    calcVM.ValidationErrors["Term"] = "Введите корректные данные по сроку";
+                }
+
+                if (calcVM.Rate < 0)
+                {
+                    calcVM.ValidationErrors["Rate"] = "Ставка не должна быть отрицательной";
+                }
+                else if (ModelState["Rate"].Errors.Count > 0)
+                {
+                    calcVM.ValidationErrors["Rate"] = "Введите корректную ставку";
+                }
+            }                
+
+            return View(calcVM);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

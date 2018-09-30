@@ -6,13 +6,13 @@ namespace BankAdviser.BLL.BusinessModels
 {
     public static class NetIncome
     {
+        // https://investoriq.ru/banki/raschet-vklada-s-kapitalizaciej.html
+
         private const double revenueTax = 0.18;
         private const double militaryTax = 0.015;
 
         public static double Calculate(InquiryDTO inquiry, DepositDTO deposit)
         {
-            // https://investoriq.ru/banki/raschet-vklada-s-kapitalizaciej.html
-
             double netIncome = 0;
 
             double sum = inquiry.Sum;
@@ -37,8 +37,6 @@ namespace BankAdviser.BLL.BusinessModels
 
         public static double Calculate(Inquiry inquiry, Deposit deposit)
         {
-            // https://investoriq.ru/banki/raschet-vklada-s-kapitalizaciej.html
-
             double netIncome = 0;
 
             double sum = inquiry.Sum;

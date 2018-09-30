@@ -9,6 +9,7 @@ namespace BankAdviser.DAL.Interfaces
         IRepository<Bank> Banks { get; }
         IRepository<Deposit> Deposits { get; }
         IRepository<ReplyEntry> ReplyEntries { get; }
+        IRepository<Rating> Ratings { get; }
         void Save();
     }
 }

@@ -1,214 +1,44 @@
-﻿@model BankAdviser.WEB.Models.InquiryVM
-
+﻿
 @{
-    ViewBag.Title = "Советник по подбору депозитов";
-
-    string sumInputError = String.Empty;
-    if (Model.ValidationErrors != null && Model.ValidationErrors.ContainsKey("Sum"))
-    {
-        sumInputError = Model.ValidationErrors["Sum"];
-    }
-
-    string termInputError = String.Empty;
-    if (Model.ValidationErrors != null && Model.ValidationErrors.ContainsKey("Term"))
-    {
-        termInputError = Model.ValidationErrors["Term"];
-    }
+    ViewBag.Title = "Поиск и сравнение банковских услуг";
+   
 }
 
-<h3 class="header-inquiry">ПОДБОР ДЕПОЗИТОВ</h3>
+<h3 class="header-inquiry">Сервис оценки и подбора депозитов</h3>
 
-<form name="selectionFrom" class="pb-md-4" action="@Url.Action("ShowReply", "Home")" method="post" onsubmit="return validateForm()">
-    <input type="hidden" value="model.Id" name="Id" />
+<div class="row text-center mb-5">
 
-    <fieldset class="form-group pb-md-4">
-        <div class="row">
-            <legend class="col-form-label col-2 pt-0">ВАЛЮТА</legend>
-            <div class="col-10">
-                <div class="custom-control custom-radio custom-control-inline col-auto">
-                    <input class="custom-control-input" type="radio" id="currencyRadio1" name="Currency" value="UAH" checked>
-                    <label class="custom-control-label" for="currencyRadio1">UAH</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline col-auto">
-                    <input class="custom-control-input" type="radio" id="currencyRadio2" name="Currency" value="USD">
-                    <label class="custom-control-label" for="currencyRadio2">USD</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline col-auto">
-                    <input class="custom-control-input" type="radio" id="currencyRadio3" name="Currency" value="EUR">
-                    <label class="custom-control-label" for="currencyRadio3">EUR</label>
-                </div>
-            </div>
+    <div class="card ml-5" style="width: 12rem;">
+        <div class="card-header"><h5><b>Депозиты</b></h5></div>
+        <img class="card-img-top p-2 pt-3 pb-4" src="~/Images/deposits.png" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">Подбор депозитов</p>
         </div>
-    </fieldset>
-
-    <div class="form-group row pb-md-4">
-        <label for="inputSum" class="col-2 col-form-label">СУММА</label>
-        <div class="col-2">
-            <input type="text" class="form-control text-center" id="inputSum" name="Sum" value="@Model.Sum">
-        </div>
-        <div id="sumValidationError" class="col-5 pt-2 validation-text">
-            @sumInputError
+        <div class="card-footer">
+            <a href="/Home/AskDeposits" class="btn btn-sm btn-block btn-secondary">Перейти</a>
         </div>
     </div>
 
-    <div class="form-group row pb-md-4">
-        <label for="inputTermRange" class="col-2 col-form-label">СРОК</label>
-        <div class="col-3">
-            <input type="range" class="form-control" id="termRange" min="1" max="36" step="1" value="@Model.Term">
+    <div class="card ml-5" style="width: 12rem;">
+        <div class="card-header"><h5><b>Рейтинги</b></h5></div>
+        <img class="card-img-top p-2 p-4" src="~/Images/rating.png" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">Рейтинги банков</p>
         </div>
-        <div class="col-1">
-            <input type="text" class="form-control text-center" id="termText" name="Term">
-        </div>
-        <label class="col-form-label">мес.</label>
-        <div id="termValidationError" class="col-5 pt-2 validation-text">
-            @termInputError
+        <div class="card-footer">
+            <a href="/Home/ShowRatings" class="btn btn-sm btn-block btn-secondary">Перейти</a>
         </div>
     </div>
 
-    <fieldset class="form-group pb-md-4">
-        <div class="row">
-            <legend class="col-form-label col-2 pt-0">ПРОЦЕНТЫ</legend>
-            <div class="col-10">
-                <div class="custom-control custom-radio custom-control-inline col-auto">
-                    <input class="custom-control-input" type="radio" id="radioWeeklyInterests" name="InterestsPeriodicity" value="Weekly">
-                    <label class="custom-control-label" for="radioWeeklyInterests">Еженедельно</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline col-auto">
-                    <input class="custom-control-input" type="radio" id="radioMonthlyInterests" name="InterestsPeriodicity" value="Monthly" checked>
-                    <label class="custom-control-label" for="radioMonthlyInterests">Ежемесячно</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline col-auto">
-                    <input class="custom-control-input" type="radio" id="radioOnCompletionInterests" name="InterestsPeriodicity" value="OnCompletion">
-                    <label class="custom-control-label" for="radioOnCompletionInterests">В конце срока</label>
-                </div>
-            </div>
+    <div class="card ml-5" style="width: 12rem;">
+        <div class="card-header"><h5><b>Калькулятор</b></h5></div>
+        <img class="card-img-top p-2 p-4" src="~/Images/calculator.png" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">Депозитный калькулятор</p>
         </div>
-    </fieldset>
-
-    <fieldset class="form-group pb-md-4">
-        <div class="row">
-            <legend class="col-form-label col-2 pt-0">УСЛОВИЯ</legend>
-            <div class="col-10">
-                <div class="custom-control custom-checkbox custom-control-inline col-auto">
-                    <input class="custom-control-input" type="checkbox" id="checkAddable" name="IsAddable" value="true">
-                    <label class="custom-control-label" for="checkAddable">Пополнение</label>
-                </div>
-                <div class="custom-control custom-checkbox custom-control-inline col-auto">
-                    <input class="custom-control-input" type="checkbox" id="checkWithdrawable" name="IsWithdrawable" value="true">
-                    <label class="custom-control-label" for="checkWithdrawable">Снятие</label>
-                </div>
-                <div class="custom-control custom-checkbox custom-control-inline col-auto">
-                    <input class="custom-control-input" type="checkbox" id="checkCancalable" name="IsCancalable" value="true">
-                    <label class="custom-control-label" for="checkCancalable">Досрочное расторжение</label>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-
-    <fieldset class="form-group pb-md-4">
-        <div class="row">
-            <legend class="col-form-label col-2 pt-0">ВИДЫ БАНКОВ</legend>
-            <div class="col-10">
-                <div class="custom-control custom-checkbox custom-control-inline col-auto">
-                    <input class="custom-control-input" type="checkbox" id="checkPrivate" name="ArePrivateBanksIncluded" value="true" checked>
-                    <label class="custom-control-label" for="checkPrivate">Частные</label>
-                </div>
-                <div class="custom-control custom-checkbox custom-control-inline col-auto">
-                    <input class="custom-control-input" type="checkbox" id="checkState" name="AreStateBanksIncluded" value="true" checked>
-                    <label class="custom-control-label" for="checkState">Государственные</label>
-                </div>
-                <div class="custom-control custom-checkbox custom-control-inline col-auto">
-                    <input class="custom-control-input" type="checkbox" id="checkForeign" name="AreForeignBanksIncluded" value="true" checked>
-                    <label class="custom-control-label" for="checkForeign">Иностранные</label>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-
-    <div class="form-group row pb-md-4">
-        <label for="selectBankNum" class="col-form-label col-2">КОЛ-ВО БАНКОВ</label>
-        <select class="custom-select col-1 ml-md-3" id="selectBankNum" name="BanksNum">
-            <option selected>5</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-        </select>
-    </div>
-
-    <div class="form-group row pb-md-4">
-        <label for="selectSortOder" class="col-form-label col-2">СОРТИРОВКА</label>
-        <select class="custom-select col-3 ml-md-3" id="selectSortOder" name="SortOrder">
-            <option value="Profitability" selected>по доходности депозитов</option>
-            <option value="BanksRating">по рейтингу банков</option>
-            <option value="BanksAssets">по размеру активов банков</option>
-        </select>
-    </div>
-
-    <div class="form-group row pt-md-3">
-        <div class="btn-select col-2">
-            <button type="submit" class="btn btn-success w-100">ПОДОБРАТЬ</button>
+        <div class="card-footer">
+            <a href="/Home/Calculator" class="btn btn-sm btn-block btn-secondary">Перейти</a>
         </div>
     </div>
 
-</form>
-
-
-@section scripts {
-    <script type="text/javascript">
-        var slider = document.getElementById("termRange");
-        var output = document.getElementById("termText");
-        output.value = slider.value;
-        slider.oninput = function () {
-            output.value = this.value;
-        };
-        output.oninput = function () {
-            slider.value = this.value;
-        }
-    </script>
-
-    <script type="text/javascript">
-
-        function isNumeric(n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
-        }
-
-        function validateForm() {
-
-            var areInputsValid = true;
-
-            var sum = document.forms["selectionFrom"]["Sum"].value;            
-            if (sum === "") {
-                document.getElementById("sumValidationError").innerHTML = "Заполните сумму депозита";
-                areInputsValid = false;
-            }
-            else if (!IsNumeric(sum)) {
-                document.getElementById("sumValidationError").innerHTML = "Введите корректную сумму";
-                areInputsValid = false;
-            }
-            else if (sum <= 0) {
-                document.getElementById("sumValidationError").innerHTML = "Сумма не должна быть отрицательной";
-                areInputsValid = false;
-            }            
-
-            var term = document.forms["selectionFrom"]["Term"].value;
-            if (term === "") {
-                document.getElementById("termValidationError").innerHTML = "Заполните срок депозита";
-                areInputsValid = false;
-            }
-            else if (!IsNumeric(term)) {
-                document.getElementById("termValidationError").innerHTML = "Введите корректный срок";
-                areInputsValid = false;
-            }
-            else if (term < 0 || term > 36) {
-                document.getElementById("termValidationError").innerHTML = "Срок должен быть от 1 до 36 мес.";
-                areInputsValid = false;
-            }
-
-            if (areInputsValid)
-                return true;
-            else
-                return false;
-
-        }
-    </script>
-}
+</div>

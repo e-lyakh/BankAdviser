@@ -1,0 +1,63 @@
+﻿@model List<BankAdviser.WEB.Models.RatingVM>
+
+@{
+    ViewBag.Title = "Рейтинг банков";
+}
+
+<h3 class="header-reply">РЕЙТИНГИ БАНКОВ</h3>
+
+<table class="table table-hover col-12">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 3%" class="text-center align-middle">#</th>
+            <th scope="col" style="width: 22%" class="text-left align-middle">@Html.DisplayNameFor(model => model[0].BankName)</th>
+            <th scope="col" style="width: 15%" class="text-center align-middle">@Html.DisplayNameFor(model => model[0].OverallRating)</th>
+            <th scope="col" style="width: 15%" class="text-center align-middle">@Html.DisplayNameFor(model => model[0].StressRating)</th>            
+            <th scope="col" style="width: 15%" class="text-center align-middle">@Html.DisplayNameFor(model => model[0].LoyaltyRating)</th>
+            <th scope="col" style="width: 15%" class="text-center align-middle">@Html.DisplayNameFor(model => model[0].AnalystsRating)</th>
+            <th scope="col" style="width: 15%" class="text-center align-middle">@Html.DisplayNameFor(model => model[0].DepositRating)</th>            
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int count = 1;
+
+            foreach (var item in Model)
+            {
+        <tr style="height: 100px;">
+            <th scope="row" class="text-center align-middle">
+                @count.ToString()
+            </th>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.BankName)
+            </td>
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.OverallRating)                
+            </td>
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.StressRating)
+            </td>
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.LoyaltyRating)
+            </td>
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.AnalystsRating)
+            </td>
+            <td class="text-center align-middle">
+                @Html.DisplayFor(modelItem => item.DepositRating)
+            </td>
+        </tr>
+                count++;
+            }
+        }
+    </tbody>
+
+</table>
+
+<p class="table-bottomline col-12"></p>
+<p class="endnote col-11"><b>Примечания:</b></p>
+<p class="endnote col-11">Стрессоустойчивость - способность банка противостоять внутренним и внешним рискам.</p>
+<p class="endnote col-11">Лояльность вкладчиков - приверженность вкладчиков депозитным продуктам банка и его успешность на данном рынке.</p>
+<p class="endnote col-11">Оценка аналитиков - экспертные оценки.</p>
+<p class="footer-line"></p>

@@ -92,3 +92,20 @@ form {
     color: red;
     font-size: 15px;
 }
+
+
+.calc-result {
+    padding-left: 10px;
+}
+.result-sum {
+    padding-top: 15px;
+}
+.tax-sum {
+    padding-top: 10px;    
+    padding-bottom: 10px;
+}
+.net-sum {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid lightgray;
+}

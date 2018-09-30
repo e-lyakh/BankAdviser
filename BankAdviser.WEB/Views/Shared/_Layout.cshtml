@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Deposit Adviser</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")    
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-info">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"></button>
-            @Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <a href="/Home/Index" class="navbar-brand"><img src="~/Images/Home.png"></a>
+            @*@Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
 
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item">@Html.ActionLink("Депозиты", "Index", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Рейтинги", "About", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Калькулятор", "Contact", "Home", new { @class = "nav-link" })</li>
+                <ul class="nav navbar-nav mr-auto" style="font-size: 20px; font-weight: 600">
+                    <li class="nav-item">@Html.ActionLink("Депозиты", "AskDeposits", "Home", new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Рейтинги", "ShowRatings", "Home", new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Калькулятор", "Calculator", "Home", new { @class = "nav-link" })</li>
                 </ul>
                 
             </div>

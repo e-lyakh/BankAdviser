@@ -25,6 +25,7 @@ namespace BankAdviser.BLL.Infrastructure
             Bind<IDepositManager>().To<DepositManager>();
             Bind<IInquiryManager>().To<InquiryManager>();
             Bind<IReplyEntryManager>().To<ReplyEntryManager>();
+            Bind<IRatingManager>().To<RatingManager>();
 
             Bind<IBotManager>().To<BotManager>();
         }
